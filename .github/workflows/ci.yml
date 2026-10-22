@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Install preview dependencies
+      - name: Install site dependencies
         run: npm ci --ignore-scripts
       - name: Install YAML checker
         run: python3 -m pip install --quiet yamllint==1.35.1
@@ -39,6 +39,26 @@ jobs:
         run: node scripts/check-content.mjs
       - name: Run repository tests
         run: npm test
+      - name: Typecheck website
+        run: npm run typecheck
+      - name: Build hardware documentation preview
+        env:
+          HARDWARE_BASE_URL: /mo-hardware/
+          HARDWARE_PREVIEW: '1'
+          HARDWARE_PREVIEW_LABEL: PR ${{ github.event.pull_request.number }} / ${{ github.sha }}
+        run: npm run build
+      - name: Check rendered pages and downloads
+        env:
+          HARDWARE_BASE_URL: /mo-hardware/
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:site
+      - uses: actions/upload-artifact@v7
+        with:
+          name: hardware-site-preview
+          path: site/build/
+          if-no-files-found: error
+          retention-days: 7
       - name: Build inventory preview
         run: node scripts/build-manifest.mjs V0.0.0-rc1 dist/manifest.json
       - name: Build temporary material preview

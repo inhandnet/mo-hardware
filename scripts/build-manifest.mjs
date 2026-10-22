@@ -11,12 +11,15 @@ export function buildManifest(root, version) {
     throw new Error('invalid version: expected VX.Y.Z or VX.Y.Z-rcN');
   }
   const names = checkContent(root);
+  const map = JSON.parse(fs.readFileSync(path.join(root, 'site/content-map.json'), 'utf8'));
   return {
     schema_version: 1,
     repository: 'inhandnet/mo-hardware',
     version,
     source_commit: execFileSync('git', ['rev-parse', 'HEAD'], {cwd: root, encoding: 'utf8'}).trim(),
-    content_status: 'scaffold',
+    content_status: 'migrated-reference',
+    reference_source: {repository: map.source_repository, commit: map.source_commit},
+    pages: map.routes.map(({route, source, original}) => ({route, source, original})),
     records: [],
     files: names.filter(name => !name.endsWith('/.gitkeep')).map(name => {
       const data = fs.readFileSync(path.join(root, name));
@@ -32,7 +35,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.ar
     const manifest = buildManifest(process.cwd(), version);
     fs.mkdirSync(path.dirname(output), {recursive: true});
     fs.writeFileSync(output, JSON.stringify(manifest, null, 2) + '\n');
-    console.log(`Built ${manifest.files.length} file entries; no validated hardware records.`);
+    console.log(`Built ${manifest.files.length} file entries and ${manifest.pages.length} inherited pages; no new validation claims.`);
   } catch (error) {
     console.error(error.message);
     process.exitCode = 1;

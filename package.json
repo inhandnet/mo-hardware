@@ -6,9 +6,53 @@
   "license": "CC-BY-SA-4.0",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "preview:build": "node test/build-preview.mjs"
+    "preview:build": "node test/build-preview.mjs",
+    "site:prepare": "node scripts/prepare-site.mjs",
+    "build": "npm run site:prepare && docusaurus build site",
+    "start": "npm run site:prepare && docusaurus start site --host 127.0.0.1 --port 8042 --no-open",
+    "serve": "docusaurus serve site --host 127.0.0.1 --port 8042 --no-open",
+    "typecheck": "tsc --project site/tsconfig.json --noEmit",
+    "test:site": "node tests/site-browser.mjs"
   },
   "devDependencies": {
-    "markdown-it": "14.3.3"
+    "markdown-it": "14.3.3",
+    "@docusaurus/module-type-aliases": "3.10.2",
+    "@docusaurus/tsconfig": "3.10.2",
+    "@docusaurus/types": "3.10.2",
+    "@types/react": "19.2.14",
+    "playwright": "1.64.0",
+    "typescript": "6.0.2"
+  },
+  "description": "Independent hardware documentation and versioned material for InHand Mo boards",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@mdx-js/react": "3.1.1",
+    "clsx": "2.1.1",
+    "pagefind": "1.5.2",
+    "prism-react-renderer": "2.4.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 safari versions"
+    ]
+  },
+  "overrides": {
+    "tinypool": "2.1.2",
+    "serialize-javascript": "7.1.2",
+    "postcss-selector-parser": "7.1.6",
+    "uuid": "11.1.1"
   }
 }
