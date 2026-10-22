@@ -39,6 +39,7 @@ jobs:
         env:
           HARDWARE_BASE_URL: /mo-hardware/
           HARDWARE_PREVIEW: '1'
+          HARDWARE_PREVIEW_LABEL: master / ${{ github.sha }}
         run: |
           npm ci --ignore-scripts
           npm run build
