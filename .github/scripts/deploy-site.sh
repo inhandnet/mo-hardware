@@ -11,7 +11,7 @@ archive=${1:?usage: deploy-site.sh archive.tar.gz}
     echo 'Expected an HTTPS hardware-docs URL' >&2; exit 1;
 }
 dist=$(dirname "$archive")
-(cd "$dist" && sha256sum --check --ignore-missing SHA256SUMS)
+(cd "$dist" && sha256sum --check SHA256SUMS)
 names=$(tar -tzf "$archive")
 grep -Eq '^(\./)?index\.html$' <<< "$names"
 grep -Eq '^(\./)?deployment\.json$' <<< "$names"
