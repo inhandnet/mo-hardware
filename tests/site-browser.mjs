@@ -18,6 +18,9 @@ const server = http.createServer((req, res) => {
   if (name !== root && !name.startsWith(root + path.sep)) {res.writeHead(403).end(); return;}
   if (fs.existsSync(name) && fs.statSync(name).isDirectory()) name = path.join(name, 'index.html');
   if (!fs.existsSync(name)) {res.writeHead(404).end(); return;}
+  if (url.pathname.endsWith('/') && fs.statSync(name).isFile() && !name.endsWith('/index.html')) {
+    res.writeHead(404).end(); return;
+  }
   res.setHeader('Content-Type', types[path.extname(name)] ?? 'application/octet-stream');
   fs.createReadStream(name).pipe(res);
 });
@@ -67,6 +70,7 @@ try {
   // Verify each local URL and fragment, including links inherited from source pages.
   const documents = new Map();
   for (const link of links) {
+    assert.ok(!/\.(svg|png|jpe?g|gif|webp|pdf|zip|txt|json)\/(?:[?#]|$)/i.test(link), link);
     const url = new URL(link);
     const response = await fetch(url);
     assert.equal(response.status, 200, link);
