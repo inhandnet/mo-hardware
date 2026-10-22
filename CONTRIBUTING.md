@@ -20,7 +20,8 @@ for sensitive reports.
 
 ```bash
 git config core.hooksPath .githooks
-node --test
+npm ci --ignore-scripts
+npm test
 node scripts/check-content.mjs
 ```
 

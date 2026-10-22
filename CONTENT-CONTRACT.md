@@ -1,12 +1,14 @@
 # Hardware content and website contract
 
-This document fixes directory responsibilities. It describes the planned
-content interface, not a completed Excel parser or website integration.
+This document fixes directory responsibilities. The hardware site will build
+and publish independently; mo-docs retains software tutorials and navigation
+links to hardware pages. This is a planned interface, not a completed Excel
+parser, production website or platform deployment.
 The first implementation populates Mo62A only; Mo68A remains empty.
 
-## Page mapping
+## Hardware page mapping (planned migration from mo-docs)
 
-| Hardware source | mo-docs destination |
+| Hardware source | Hardware site page |
 | --- | --- |
 | Product workbook and images | Overview & specifications |
 | Interfaces | Hardware interfaces |
@@ -52,11 +54,18 @@ with hashes, sizes, source revision and `content_status: scaffold`.
 It contains no validated content records. `schema_version` versions this
 inventory format; it is not the future workbook schema version.
 
-A later implementation will validate workbooks, export structured JSON/CSV and
-publish a content catalog. mo-docs will pin a Release and digest, generate its
-existing pages and publish only after a complete successful build. Empty
-Mo68A directories will not produce supported-product claims or new pages.
-The initial workflows do not send cross-repository notifications.
+A later implementation will validate workbooks, export structured JSON/CSV,
+build hardware pages and publish them with versioned attachments. PR previews
+and release builds should use the same production templates once available.
+mo-docs links to stable hardware page URLs; routine hardware releases do not
+require rebuilding mo-docs. Preserve old page/anchor links during migration.
+Empty Mo68A directories must not produce supported-product claims or new pages.
+
+The current `test/` renderer previews Markdown and downloads on GitHub Pages.
+It is not the production site. Public test and future production deployments
+will use separate targets; RC versions go only to the test platform. Static
+file replacement normally needs no developer process restart. Target paths,
+atomic activation, rollback and navigation integration remain to implement.
 
 Large files should eventually use versioned release/object-storage attachments.
 For now, committed files must be at most 50 MiB and must contain actual bytes,

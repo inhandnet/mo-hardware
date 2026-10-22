@@ -3,7 +3,9 @@
 [English](README.md) | 简体中文
 
 本仓库维护 InHand Mo 系列硬件资料、结构文件、配件与测试记录。
-所有网页、导航与渲染逻辑仍由 [mo-docs](https://github.com/inhandnet/mo-docs) 维护。
+硬件页面计划在本仓库独立构建和发布，与
+[mo-docs](https://github.com/inhandnet/mo-docs) 保持视觉一致。
+硬件同事维护资料；页面模板和自动化由软件团队维护。
 
 ## 当前状态
 
@@ -11,7 +13,9 @@
 Mo62A 与 Mo68A 目前均为目录占位；Mo68A 没有填写任何产品资料。
 占位目录不代表已验证或支持对应硬件能力。
 
-各栏目 Excel 模板、字段级校验、Excel 转 JSON 与 mo-docs 自动接入尚未实现。
+`test/` 提供 Markdown 和下载链接预览，PR CI 成功后自动发布到 GitHub Pages。
+正式硬件页面、Excel 模板、字段级校验、转换和平台部署尚未实现。
+mo-docs 现有页面没有迁移；不会要求每次硬件发布都重编 mo-docs。
 当前发布的 manifest 只是文件清单，不能作为已验证产品目录。
 
 ## 维护职责
@@ -47,7 +51,9 @@ Mo62A 与 Mo68A 目前均为目录占位；Mo68A 没有填写任何产品资料�
 `VX.Y.Z` 为正式版，`VX.Y.Z-rcN` 为预发布版。已发布 Tag 不覆盖、不删除。
 Release 包含资料归档、文件清单、SPDX 软件物料清单、校验和、中英文更新记录。
 SPDX 文件描述仓库发布物，不代表板卡器件 BOM。
-当前流程不部署网页、不触发 mo-docs；接入完成后另行启用版本更新流程。
+Tag 流程目前不部署公网测试/正式平台，也不触发 mo-docs。
+GitHub Pages 只用于工程预览，展示最近一次成功渲染的 PR 并标明提交版本。
 
 许可证与 mo-docs 一致，为 [CC BY-SA 4.0](LICENSE)。第三方资料保留原许可；
 没有再分发许可时使用官方链接。请勿上传凭据、内部资料或未获公开授权的附件。
+markdown-it 等维护依赖遵循各自的软件许可证，不适用本仓库的 CC BY-SA 声明。
