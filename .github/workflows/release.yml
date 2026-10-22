@@ -14,6 +14,10 @@ concurrency:
 env:
   TAG: ${{ github.ref_name }}
   REPO_NAME: mo-hardware
+  HARDWARE_BASE_URL: /hardware-docs/
+  HARDWARE_SITE_URL: ${{ vars.WEBSITE_SITE_URL || 'https://developer.inhand.online' }}
+  DOCUMENTATION_URL: ${{ vars.DOCUMENTATION_URL || 'https://developer.inhand.online/docs' }}
+  DEVELOPER_PORTAL_URL: ${{ vars.DEVELOPER_PORTAL_URL || 'https://developer.inhand.online' }}
 
 jobs:
   validate:
@@ -48,6 +52,17 @@ jobs:
           node scripts/check-content.mjs
           node scripts/build-manifest.mjs "$TAG" dist/manifest.json
           node scripts/generate-changelog.mjs --version "$TAG" --output dist
+      - name: Build deployable hardware site
+        run: |
+          npm ci --ignore-scripts
+          npm run build
+          node --input-type=module -e '
+            import fs from "node:fs";
+            fs.writeFileSync("site/build/deployment.json", JSON.stringify({
+              version: process.env.TAG, commit: process.env.GITHUB_SHA,
+              repository: process.env.GITHUB_REPOSITORY
+            }) + "\n");'
+          tar -C site/build -czf "dist/$REPO_NAME-site-$TAG.tar.gz" .
       - name: Package source and material
         run: |
           git archive --format=tar.gz --prefix="$REPO_NAME-$TAG/" \
@@ -64,7 +79,7 @@ jobs:
       - name: Checksum release files
         run: |
           cd dist
-          sha256sum "$REPO_NAME-$TAG.tar.gz" "$REPO_NAME-$TAG.spdx.json" \
+          sha256sum "$REPO_NAME-$TAG.tar.gz" "$REPO_NAME-site-$TAG.tar.gz" "$REPO_NAME-$TAG.spdx.json" \
             manifest.json CHANGELOG.en.md CHANGELOG.zh-CN.md release-notes.md > SHA256SUMS
           sha256sum --check SHA256SUMS
       - uses: actions/upload-artifact@v7
@@ -97,8 +112,33 @@ jobs:
           if [[ $TAG == *-rc* ]]; then args+=(--prerelease --latest=false); fi
           gh release create "$TAG" \
             "dist/$REPO_NAME-$TAG.tar.gz" \
+            "dist/$REPO_NAME-site-$TAG.tar.gz" \
             "dist/$REPO_NAME-$TAG.spdx.json" \
             dist/manifest.json dist/CHANGELOG.en.md dist/CHANGELOG.zh-CN.md \
             dist/release-notes.md dist/SHA256SUMS \
             --verify-tag --title "$TAG" --notes-file dist/release-notes.md \
             "${args[@]}"
+  deploy-test:
+    name: deploy-test-platform
+    needs: publish
+    runs-on: ubuntu-latest
+    concurrency:
+      group: mo-hardware-deploy-test
+      cancel-in-progress: false
+    environment: test
+    env:
+      DEPLOY_HOST: ${{ secrets.OPS_DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.OPS_DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.OPS_DEPLOY_SSH_KEY }}
+      DEPLOY_HOST_KEY: ${{ secrets.OPS_DEPLOY_HOST_KEY }}
+      DEPLOY_URL: https://developer.inhand.online/hardware-docs/
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v7
+        with:
+          name: mo-hardware-release-${{ github.ref_name }}
+          path: dist/
+      - name: Deploy and verify isolated hardware site
+        run: bash .github/scripts/deploy-site.sh "dist/$REPO_NAME-site-$TAG.tar.gz"

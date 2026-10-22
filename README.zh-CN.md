@@ -3,25 +3,27 @@
 [English](README.md) | 简体中文
 
 本仓库维护 InHand Mo 系列硬件资料、结构文件、配件与测试记录。
-硬件页面计划在本仓库独立构建和发布，与
+硬件页面在本仓库独立构建和发布，与
 [mo-docs](https://github.com/inhandnet/mo-docs) 保持视觉一致。
 硬件同事维护资料；页面模板和自动化由软件团队维护。
 
 ## 当前状态
 
-已提供目录骨架、贡献规范、CI 和 Tag 发布流程。
-Mo62A 与 Mo68A 目前均为目录占位；Mo68A 没有填写任何产品资料。
-占位目录不代表已验证或支持对应硬件能力。
+第一版迁入 mo-docs 提交 `cbc6053` 的 33 个硬件、配件和合规源页，另生成
+三个入口。沿用原主题、字体、搜索与表格规则，保留 Mo62A 公开图片、STEP
+和原理图 PDF。来源与路由记录在 `site/content-map.json`。
+Mo68A 网页保留原站内容（Overview 已有规格），其产品资料目录仍为空；
+不新增验证结论，不修改 Mo68A 代码。Coming soon 页面不代表已支持或已认证。
 
-`test/` 提供 Markdown 和下载链接预览，PR CI 成功后自动发布到 GitHub Pages。
-正式硬件页面、Excel 模板、字段级校验、转换和平台部署尚未实现。
-mo-docs 现有页面没有迁移；不会要求每次硬件发布都重编 mo-docs。
-当前发布的 manifest 只是文件清单，不能作为已验证产品目录。
+PR CI 使用正式站构建并发布 Pages 预览。Excel 模板、字段级校验及转换仍待实现。
+当前先维护普通 Markdown 和附件，不要求硬件同事编辑 MDX 或前端代码。
+manifest 区分继承页面与验证记录，不能当作已验证产品目录。
 
 ## 维护职责
 
 硬件团队维护 `products/` 和 `accessories/` 下的表格、说明和附件。
 模板位于 `templates/`；自动化由软件团队维护，不要求硬件同事编写代码。
+网站代码在 `site/`，由软件团队维护；日常硬件发布无需重编 mo-docs。
 
 | 目录 | 职责 |
 | --- | --- |
@@ -49,10 +51,16 @@ mo-docs 现有页面没有迁移；不会要求每次硬件发布都重编 mo-do
 
 管理员推送指向 master 历史中提交的 annotated Tag 后自动发布：
 `VX.Y.Z` 为正式版，`VX.Y.Z-rcN` 为预发布版。已发布 Tag 不覆盖、不删除。
-Release 包含资料归档、文件清单、SPDX 软件物料清单、校验和、中英文更新记录。
+Release 包含资料归档、独立静态站包、文件清单、SPDX 软件物料清单、校验和、中英文更新记录。
 SPDX 文件描述仓库发布物，不代表板卡器件 BOM。
-Tag 流程目前不部署公网测试/正式平台，也不触发 mo-docs。
-GitHub Pages 只用于工程预览，展示最近一次成功渲染的 PR 并标明提交版本。
+Tag 发布后经受限 `deploy-hardware` 动作部署测试平台 `/hardware-docs/`。
+流水线校验压缩包和上线版本，冒烟检查失败时回滚；缺少部署凭据会报错。
+正式平台尚未接入，RC 不部署正式平台。mo-docs 旧硬件页逐页跳转并保留锚点。
+GitHub Pages 只用于完整站点的工程预览，不替代公网测试平台发布。
+
+本地运行：`npm ci --ignore-scripts` 后使用 `npm run start`（8042）；
+生产构建用 `npm run build`，输出 `site/build/`；生成目录不得手工编辑。
+检查包括 `npm test`、`npm run typecheck` 和安装 Chromium 后的 `npm run test:site`。
 
 许可证与 mo-docs 一致，为 [CC BY-SA 4.0](LICENSE)。第三方资料保留原许可；
 没有再分发许可时使用官方链接。请勿上传凭据、内部资料或未获公开授权的附件。

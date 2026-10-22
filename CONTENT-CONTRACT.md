@@ -2,11 +2,12 @@
 
 This document fixes directory responsibilities. The hardware site will build
 and publish independently; mo-docs retains software tutorials and navigation
-links to hardware pages. This is a planned interface, not a completed Excel
-parser, production website or platform deployment.
-The first implementation populates Mo62A only; Mo68A remains empty.
+links to hardware pages. The first site migration uses ordinary Markdown and
+approved attachments; it is not a completed Excel parser or validation catalog.
+Mo62A content is populated. Mo68A product records remain empty while inherited
+website references preserve the existing mo-docs text and placeholder status.
 
-## Hardware page mapping (planned migration from mo-docs)
+## Hardware page mapping
 
 | Hardware source | Hardware site page |
 | --- | --- |
@@ -49,23 +50,26 @@ MMA utilization from a short workload observation.
 
 ## Versioned handoff
 
-The foundation Release exports a source archive and file-level `manifest.json`
-with hashes, sizes, source revision and `content_status: scaffold`.
-It contains no validated content records. `schema_version` versions this
+The Release exports source and static-site archives plus `manifest.json`
+with hashes, sizes, source revision and `content_status: migrated-reference`.
+The inherited page list records the original repository and commit. Empty
+`records` means no new structured validation records, not an absence of pages.
+`schema_version` versions this
 inventory format; it is not the future workbook schema version.
 
-A later implementation will validate workbooks, export structured JSON/CSV,
-build hardware pages and publish them with versioned attachments. PR previews
-and release builds should use the same production templates once available.
+A later implementation will validate workbooks and export structured JSON/CSV.
+PR previews and release builds now use the same production templates.
 mo-docs links to stable hardware page URLs; routine hardware releases do not
 require rebuilding mo-docs. Preserve old page/anchor links during migration.
-Empty Mo68A directories must not produce supported-product claims or new pages.
+Empty Mo68A directories must not produce new supported-product claims.
 
-The current `test/` renderer previews Markdown and downloads on GitHub Pages.
-It is not the production site. Public test and future production deployments
-will use separate targets; RC versions go only to the test platform. Static
-file replacement normally needs no developer process restart. Target paths,
-atomic activation, rollback and navigation integration remain to implement.
+The optional `test/` material index is not used as the main Pages site. Pages
+publishes the full website from read-only CI artifacts; the privileged deploy
+job does not execute PR code. Test releases deploy independently under the
+portal's `/hardware-docs/` URL; RCs never go to production. The server confines
+the action to the hardware subdirectory, stages archives, activates atomically
+and retains a rollback copy. Static replacement needs no developer restart.
+The future production platform is not configured.
 
 Large files should eventually use versioned release/object-storage attachments.
 For now, committed files must be at most 50 MiB and must contain actual bytes,

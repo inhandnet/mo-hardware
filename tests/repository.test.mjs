@@ -23,7 +23,9 @@ test('reject private keys without printing their contents', () => {
 
 test('manifest preserves actual hashes and does not advertise placeholder products', () => {
   const manifest = buildManifest(process.cwd(), 'V1.0.1-rc1');
-  assert.equal(manifest.content_status, 'scaffold');
+  assert.equal(manifest.content_status, 'migrated-reference');
+  assert.equal(manifest.pages.length, 33);
+  assert.equal(manifest.reference_source.commit, 'cbc60530f3fa04ebdf7870dcfe47d08e753fb636');
   assert.deepEqual(manifest.records, []);
   assert.ok(manifest.files.length > 0);
   for (const entry of manifest.files) {
