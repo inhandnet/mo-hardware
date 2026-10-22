@@ -54,10 +54,16 @@ export function buildPreview(source, output, label) {
     }
   }
   walk(source);
+  for (const name of ['LICENSE', 'test/README.md']) {
+    const filename = path.join(source, name);
+    if (fs.existsSync(filename) && fs.lstatSync(filename).isFile()) files.push(name);
+  }
   const documents = files.filter(name => name.endsWith('.md')).sort();
-  const attachments = files.filter(name => attachmentExtensions.has(path.extname(name).toLowerCase())).sort();
+  const attachments = files.filter(name => name === 'LICENSE' ||
+    attachmentExtensions.has(path.extname(name).toLowerCase())).sort();
   const copied = new Set(attachments);
   const documentSet = new Set(documents);
+  const sourceRef = label.match(/\b[0-9a-f]{40}\b/)?.[0] ?? 'master';
   const policy = "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'";
   const styles = 'body{max-width:1050px;margin:auto;padding:24px;font:18px/1.55 system-ui;color:#222}' +
     'nav,aside{background:#f7f8fa;padding:16px;border-radius:8px}a{color:#007438}' +
@@ -89,6 +95,9 @@ export function buildPreview(source, output, label) {
               const targetOutput = documentSet.has(target) ? `${target}.html` : target;
               const relative = path.posix.relative(path.posix.dirname(name), targetOutput);
               token.attrSet(attr, urlPath(relative) + (fragment ? '#' + encodeURIComponent(fragment) : ''));
+            } else {
+              token.attrSet(attr, 'https://github.com/inhandnet/mo-hardware/blob/' +
+                sourceRef + '/' + urlPath(target) + (fragment ? '#' + encodeURIComponent(fragment) : ''));
             }
           }
         }
