@@ -1,0 +1,18 @@
+name: Hardware material request
+description: Request a document, template or validation record.
+title: "[Request]: "
+labels: [enhancement]
+body:
+  - type: input
+    id: product
+    attributes:
+      label: Product or accessory
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: Requested material and use case
+      description: Do not attach confidential designs or credentials.
+    validations:
+      required: true

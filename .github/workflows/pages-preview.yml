@@ -1,0 +1,96 @@
+name: pages-preview
+
+on:
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number to preview
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hardware-pages-preview
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: render-material-preview
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.event == 'pull_request' &&
+       github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install trusted renderer dependencies
+        run: npm ci --ignore-scripts
+      - name: Resolve PR and fetch its content without executing it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REQUESTED_PR: ${{ inputs.pr }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [[ $EVENT_NAME == workflow_dispatch ]]; then
+            PR_NUMBER=$REQUESTED_PR
+          else
+            PR_NUMBER=$(jq -r '.workflow_run.pull_requests[0].number // empty' "$GITHUB_EVENT_PATH")
+            if [[ -z $PR_NUMBER ]]; then
+              HEAD_SHA=$(jq -r '.workflow_run.head_sha' "$GITHUB_EVENT_PATH")
+              PR_NUMBER=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls" \
+                --jq 'map(select(.state == "open" and .base.ref == "master"))[0].number // empty')
+            fi
+          fi
+          [[ $PR_NUMBER =~ ^[1-9][0-9]*$ ]]
+          PR_JSON=$(gh api "repos/$GH_REPO/pulls/$PR_NUMBER")
+          test "$(jq -r '.base.ref' <<< "$PR_JSON")" = master
+          HEAD_SHA=$(jq -r '.head.sha' <<< "$PR_JSON")
+          [[ $HEAD_SHA =~ ^[0-9a-f]{40}$ ]]
+          if [[ $EVENT_NAME != workflow_dispatch ]]; then
+            test "$HEAD_SHA" = "$(jq -r '.workflow_run.head_sha' "$GITHUB_EVENT_PATH")"
+          fi
+          git fetch --no-tags origin "refs/pull/$PR_NUMBER/head"
+          test "$(git rev-parse FETCH_HEAD)" = "$HEAD_SHA"
+          git -c core.hooksPath=/dev/null worktree add --detach "$RUNNER_TEMP/pr-content" "$HEAD_SHA"
+          printf 'PREVIEW_LABEL=PR #%s / %s\n' "$PR_NUMBER" "$HEAD_SHA" >> "$GITHUB_ENV"
+      - name: Render content with the trusted base renderer
+        run: |
+          node test/build-preview.mjs --source "$RUNNER_TEMP/pr-content" \
+            --output dist/preview --label "$PREVIEW_LABEL"
+          printf '## Hardware material preview\n\n%s\n' "$PREVIEW_LABEL" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/preview
+          retention-days: 7
+  deploy:
+    name: deploy-material-preview
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy preview
+        id: deployment
+        uses: actions/deploy-pages@v4

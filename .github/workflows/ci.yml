@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install preview dependencies
+        run: npm ci --ignore-scripts
+      - name: Install YAML checker
+        run: python3 -m pip install --quiet yamllint==1.35.1
+      - name: Check shell files
+        run: |
+          mapfile -t files < <(git ls-files '*.sh' '.githooks/*')
+          for file in "${files[@]}"; do bash -n "$file"; done
+          shellcheck --shell=bash "${files[@]}"
+      - name: Check YAML
+        run: yamllint --strict .github .yamllint.yml
+      - name: Validate content layout and files
+        run: node scripts/check-content.mjs
+      - name: Run repository tests
+        run: npm test
+      - name: Build inventory preview
+        run: node scripts/build-manifest.mjs V0.0.0-rc1 dist/manifest.json
+      - name: Build temporary material preview
+        run: node test/build-preview.mjs --source . --output dist/preview --label ci
+      - uses: actions/upload-artifact@v7
+        with:
+          name: hardware-inventory-${{ github.sha }}
+          path: dist/manifest.json
+          if-no-files-found: error
+          retention-days: 7

@@ -1,0 +1,31 @@
+name: Hardware documentation correction
+description: Report an incorrect record, attachment or hardware description.
+title: "[Correction]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For product usage questions, visit https://community.inhand.com.
+        Do not post confidential material or vulnerabilities; see SECURITY.md.
+  - type: input
+    id: record
+    attributes:
+      label: Record path or URL
+      placeholder: products/mo62a/mechanical/
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Product and hardware revision
+      description: Include software versions if the observation depends on software.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Problem and proposed correction
+      description: Include public evidence and distinguish observations from specifications.
+    validations:
+      required: true
