@@ -1,5 +1,7 @@
 # mo-hardware architecture
 
+> Migration status: this document describes the retained historical hardware site. Content and maintainer training are being consolidated in mo-docs/hardware/; developer owns the target unified website. New content uses the mo-docs workflow. Keep this project for traceability and recovery until unified deployment and rollback have passed acceptance. The repository has not been archived. See the README diagrams for the target architecture.
+
 The repository owns hardware reference sources and an independent Docusaurus site. Hardware engineers maintain `products/` and `accessories/`; software maintainers implement `site/`, `scripts/`, `tests/` and workflows. The [training guide](training/README.zh-CN.md) explains each content category and its browser workflow.
 
 ## Sources and mappings

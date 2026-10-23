@@ -2,29 +2,30 @@
 
 [English](README.md) | 简体中文
 
-InHand Mo 系列的硬件资料与独立硬件文档站。硬件工程师维护产品、接口、设计文件、机械资料、版本、验证记录、合规与配件内容；软件维护者负责页面映射、主题、构建和发布自动化。
+历史硬件资料仓库，正在迁入 mo-docs/hardware/。统一目标由 mo-docs 维护软硬件内容，由 developer 维护唯一网站前端、构建和部署。当前仓库的历史资料、培训、标签及发布物继续保留；统一站点尚未切换，不代表本仓库已归档。
 
-**硬件工程师从[维护培训手册](training/README.zh-CN.md)开始。** 手册以 GitHub 网页为主，提供逐步截图、完整练习和每一类资料的维护说明。代码贡献者另读 [CONTRIBUTING.md](CONTRIBUTING.md)，内容格式与网站交付约定见 [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md)。
+**新架构的硬件维护入口为 mo-docs 的 `hardware/training/`。** 本仓库的[维护培训手册](training/README.zh-CN.md)保留迁移前流程。 手册以 GitHub 网页为主，提供逐步截图、完整练习和每一类资料的维护说明。代码贡献者另读 [CONTRIBUTING.md](CONTRIBUTING.md)，内容格式与网站交付约定见 [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md)。
 
 ## 在 Mo 系列中的职责
 
-![Mo 系列仓库协同](architecture/repository-map.zh-CN.svg)
+[![Mo 系列仓库职责与统一网站](architecture/repository-map.zh-CN.svg)](architecture/repository-map.zh-CN.svg)
 
-| 仓库 | 维护内容 | 与 mo-hardware 的关系 |
+| 仓库 | 人工维护的源内容 | 交付职责 |
 |---|---|---|
-| `developer` | 产品入口、开发者导航和版本聚合 | 链接独立硬件站 `/hardware-docs/` |
-| `Mo*` | 每型号独立的 BSP、镜像与系统适配 | 硬件资料注明对应板卡/版本；软件配置链接到软件指南 |
-| `mo-docs` | OS、软件配置、应用开发和教程 | 链接硬件页，旧硬件 URL 跳转到本仓库站点 |
-| `mo-hardware` | 硬件参考文件、资料页面与测试记录 | 自己维护来源、构建、预览和 Release |
-| `mo-tools` | 工具链、主机脚本与板测工具 | 验证记录引用具体工具版本，不复制工具代码 |
-| `mo-models` | 模型清单、兼容信息和模型基准 | 功耗/温度等记录注明用到的模型版本 |
-| `mo-examples` | 可运行的示例应用 | 硬件验证可引用示例，但不混入本站维护培训样例 |
+| **developer** · GitLab | 网站组件、路由、搜索、接入层与内容接口 | 完整网站、发布组成清单与部署 |
+| [mo-docs](https://github.com/inhandnet/mo-docs) | 软硬件教程、规格、媒体、设计资料与维护培训 | 版本化内容与参考附件 |
+| [mo-tools](https://github.com/inhandnet/mo-tools) | 工具链/SDK 选择、环境准备、通用开发工具与 Studio | 工具元信息和源码包 |
+| [mo-models](https://github.com/inhandnet/mo-models) | 模型目录、编译资源、兼容关系与原始基准 | 模型引用、验证证据与托管状态 |
+| [mo-examples](https://github.com/inhandnet/mo-examples) | 完整示例及配套固件、客户端和配置 | 示例源码及适用条件 |
+| **Mo\*** · 各型号仓库 | 各自 BSP、驱动、根文件系统、镜像构建与烧录 | 系统镜像及带校验值的发布元信息 |
 
-`Mo*` 表示各型号独立的 BSP/镜像仓库，不限定型号或仓库数量。仓库发布版本、PCB 版本、装配/BOM 版本、资料修订版、模板版和软件版本分别记录；数字相同不表示已验证兼容。日常硬件站发布不要求重新构建 mo-docs。
+`Mo*` 表示各型号独立的产品仓库，例如 [Mo62A](https://github.com/inhandnet/Mo62A)、Mo68A、Mo69A、Mo67A、Mo3588、Mo3568，框架不固定数量。mo-hardware 的资料与维护培训迁入 mo-docs；mo-hardware 保留为历史迁移来源，不再单列为目标网站发布组成项。
 
-## 内部架构与内容入口
+各源仓库独立发布普通版本，只有 developer 区分网站 RC 与正式版。目标发布组成绑定 **developer + mo-docs + mo-tools + mo-models + mo-examples + 纳入的 Mo\***，记录准确提交与所消费附件哈希。上游新发版本不会改变已冻结的网站组合。教程适用范围、PCB 修订、镜像版本和实际验证结论分别记录。
 
-![从硬件资料到网站和发布物](architecture/content-flow.zh-CN.svg)
+## 历史目录与迁移对应关系
+
+[![从硬件资料到网站和发布物](architecture/ownership.zh-CN.svg)](architecture/ownership.zh-CN.svg)
 
 | 目录 | 硬件工程师维护什么 | 逐项说明 |
 |---|---|---|
@@ -48,7 +49,9 @@ InHand Mo 系列的硬件资料与独立硬件文档站。硬件工程师维护�
 
 本仓库保留从 mo-docs `cbc6053` 迁入的 33 条页面映射和 3 个入口。Mo62A 已有正文、图片、完整原理图 PDF 与 STEP ZIP；Mo68A 资料目录为预留，继承网页中的规格或 Coming soon 不代表新验证。Excel 的 `product.xlsx` / `record.xlsx`、字段校验和自动转换仍是后续设计；目前 `manifest.json` 是文件与来源清单，`records: []` 不代表结构化硬件验证已完成。
 
-## 维护流程与权限
+## 历史维护流程与现有权限
+
+以下步骤描述保留的历史工程。新内容在 mo-docs 中提交，按统一网站集成流程验收；不再通过新增硬件 RC 延续旧部署。
 
 1. 找到本次资料的源文件，核对来源、板卡/装配版本和公开范围。
 2. 从最新 `master` 创建主题分支，修改正文与附件；保留旧下载兼容性和事实边界。
@@ -68,7 +71,7 @@ InHand Mo 系列的硬件资料与独立硬件文档站。硬件工程师维护�
 
 提交和 PR 标题使用简短英文 Conventional Commit，如 `docs(mechanical): clarify reference model usage`。标题最多 72 字符，正文可选；不要求双语 `Message:` 块，不加 `Co-Authored-By`，不使用跳过 CI 的标记。GitHub 网页的默认提交标题需要改成此格式。完整步骤与截图见[网页维护流程](training/github-workflow.zh-CN.md)。
 
-## 本地检查与预览
+## 历史工程检查与预览
 
 使用 Node.js 22，安装时自动启用本仓库 commit-msg/pre-push 钩子：
 
@@ -96,22 +99,11 @@ npm run start
 
 ## 预览、版本与发布
 
-![从提交到预览和发布](architecture/release-flow.zh-CN.svg)
+[![发布组成清单与晋级流程](architecture/release-flow.zh-CN.svg)](architecture/release-flow.zh-CN.svg)
 
-PR / master CI 以只读权限构建并测试完整网站，再交给独立 Pages 工作流部署静态产物。部署工作不执行 PR 代码。Pages 是单个共享预览位置，其他成功构建可能覆盖它；根据横幅和 `deployment.json` 的提交标识确认内容，不只看网址。PR 合并前的 merge SHA 可与 PR head 不同，需和对应 CI run 核对。
+此图描述统一网站目标，不表示旧硬件站已经退出。迁移先核验正文、附件哈希、培训与旧 URL；developer 完整站点及回滚验收后，才能停止旧站部署。迁移不通过新硬件 RC 继续建立第三套网站发布线。现有脚本、历史 Tag 和 Release 保留用于追溯与恢复；仓库归档另行处理。
 
-所有 Tag 都触发校验；合法格式为 `VX.Y.Z` 或 `VX.Y.Z-rcN`，大写 `V`、不带前导零、`N` 从 1 开始。发布要求 annotated Tag 指向 `master` 历史中的提交。网页“创建 Release”不能代替 annotated Tag；管理员按 CONTRIBUTING 的命令流程操作。Tag 校验在推送后由 CI 执行。
-
-Release 提供版本化源码/资料归档、静态网站包、含源提交和 SHA-256 的 `manifest.json`、仓库分发用 SPDX SBOM、两份 Changelog、组合发布说明和 `SHA256SUMS`。SBOM 描述软件/资料发布物，不是物理板卡 BOM。仓库内部 package 版本用于依赖管理，网站版本来自 Tag。
-
-Changelog 从上一个正式版累积；历史英文 Message 摘要仍能读取。中文文件目前仅翻译固定标题与分类，条目保留英文。
-
-| 平台 | 翻译服务器 | 状态 |
-|---|---|---|
-| GitHub | `-` | API 待后续接入，无需配置翻译凭据 |
-| GitLab | `-` | Mo 系列统一策略占位 |
-
-Release 成功后部署测试平台 `/hardware-docs/`，校验归档和在线标记；失败按已有受限命令回滚。依赖 `OPS_DEPLOY_HOST`、`OPS_DEPLOY_USER`、`OPS_DEPLOY_SSH_KEY`、`OPS_DEPLOY_HOST_KEY`，缺配置失败。当前自动部署只有测试平台；正式平台尚未接入，不能将正式 Tag 的 Release 当作正式网站已上线。RC 标记为 prerelease，不覆盖 latest 正式版。
+新内容维护流程位于 mo-docs/hardware/training/；本仓库下文和旧培训中的独立站操作属于迁移前历史工程。
 
 ## 内容与许可
 

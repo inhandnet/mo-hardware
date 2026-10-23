@@ -2,29 +2,30 @@
 
 English | [简体中文](README.zh-CN.md)
 
-Hardware references and an independently built documentation site for InHand Mo boards. Hardware engineers own product information, connectors, design files, mechanical references, revisions, validation, compliance and accessory records. Software maintainers own routing, templates, checks and release automation.
+Historical hardware source repository, being consolidated into mo-docs/hardware/. In the unified architecture, mo-docs owns software/hardware content and developer owns the only website frontend, build and deployment. Historical files, training, tags and releases remain available. The unified site has not been rolled out and this repository is not archived.
 
-**Start with the [hardware maintainer training guide (Chinese)](training/README.zh-CN.md).** It includes a browser-first GitHub walkthrough, screenshots, a complete exercise and detailed instructions for every content category. Developers should also read [CONTRIBUTING.md](CONTRIBUTING.md); [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md) defines the content and website handoff.
+**Start new hardware maintenance in mo-docs `hardware/training/`.** The [training guide here (Chinese)](training/README.zh-CN.md) preserves the pre-migration workflow. It includes a browser-first GitHub walkthrough, screenshots, a complete exercise and detailed instructions for every content category. Developers should also read [CONTRIBUTING.md](CONTRIBUTING.md); [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md) defines the content and website handoff.
 
 ## Role in the Mo series
 
-![Mo repository collaboration](architecture/repository-map.en.svg)
+[![Mo repository ownership and unified website](architecture/repository-map.en.svg)](architecture/repository-map.en.svg)
 
-| Repository | Responsibility | Relationship to mo-hardware |
+| Repository | Maintained source | Delivery responsibility |
 |---|---|---|
-| `developer` | Portal, product navigation and release aggregation | Links to `/hardware-docs/` |
-| `Mo*` | A separate BSP, image and adaptation repository for each model | Records identify the applicable board and software baseline |
-| `mo-docs` | OS, software configuration and application guides | Links to hardware pages; inherited hardware URLs redirect here |
-| `mo-hardware` | Hardware material, pages and validation records | Own sources, builds, previews and releases |
-| `mo-tools` | Toolchain, host scripts and board test tools | Records reference exact tool versions |
-| `mo-models` | Model inventory, compatibility and benchmarks | Workload records identify the model version |
-| `mo-examples` | Runnable device applications | Hardware tests may reference applications; maintainer exercises stay here |
+| **developer** · GitLab | Website components, routes, search, integration and contracts | The complete website, release composition and deployment |
+| [mo-docs](https://github.com/inhandnet/mo-docs) | Software/hardware tutorials, specifications, media, design files and training | Versioned content and reference assets |
+| [mo-tools](https://github.com/inhandnet/mo-tools) | Toolchain/SDK selection, environment setup, reusable tools and Studio | Tool metadata and source packages |
+| [mo-models](https://github.com/inhandnet/mo-models) | Model catalog, compilation resources, compatibility and raw benchmarks | Model references, evidence and artifact status |
+| [mo-examples](https://github.com/inhandnet/mo-examples) | Complete examples with related firmware, clients and configuration | Example sources and their requirements |
+| **Mo\*** · product repositories | Each product's BSP, drivers, root filesystem, image build and flashing | Product images and checksummed release metadata |
 
-`Mo*` represents per-model BSP/image repositories without fixing their number. Repository releases, PCB revisions, assembly/BOM revisions, document revisions, template versions and software versions are separate identifiers. Matching numbers do not establish compatibility. Routine hardware releases do not rebuild mo-docs.
+`Mo*` covers independently maintained product repositories such as [Mo62A](https://github.com/inhandnet/Mo62A), Mo68A, Mo69A, Mo67A, Mo3588 and Mo3568. The framework does not fix their number. Hardware content and maintainer training move from mo-hardware into mo-docs; mo-hardware remains a historical migration source and is not a separate member of the target website composition.
 
-## Internal architecture and ownership
+Each source repository publishes ordinary versions. Developer alone has website RC/final channels. The target composition binds **developer + mo-docs + mo-tools + mo-models + mo-examples + selected Mo\*** to exact commits and consumed-asset hashes. A new source release does not change an already frozen website combination. Tutorial applicability, PCB revisions, image versions and actual validation remain distinct.
 
-![From hardware content to website and releases](architecture/content-flow.en.svg)
+## Historical layout and migration mapping
+
+[![From hardware content to website and releases](architecture/ownership.en.svg)](architecture/ownership.en.svg)
 
 | Path | Hardware content | Training chapter |
 |---|---|---|
@@ -48,7 +49,9 @@ Contributors maintain ordinary `*.en-US.md` and actual attachment bytes; MDX and
 
 The source map retains 33 pages migrated from mo-docs `cbc6053`, plus three entry pages. Mo62A has source text, images, complete schematic PDFs and a STEP ZIP. Mo68A material directories remain reserved; inherited specifications and Coming soon pages do not constitute new validation. Excel `product.xlsx` / `record.xlsx`, field semantics and conversion remain future work. `manifest.json` is a file/source inventory; `records: []` does not claim structured hardware qualification.
 
-## Maintenance and permissions
+## Historical workflow and current permissions
+
+The steps below describe the retained historical project. New content belongs in mo-docs and uses unified website acceptance; do not extend the old deployment with new hardware RCs.
 
 1. Locate the source, establish provenance, board/assembly applicability and publication scope.
 2. Create a topic branch from current `master`; edit text and attachments while preserving download compatibility.
@@ -68,7 +71,7 @@ The protection design separates master permissions from non-bypassable PR/CI req
 
 Use short English Conventional Commit titles, for example `docs(mechanical): clarify reference model usage`. Titles are limited to 72 characters; a body is optional. No bilingual `Message:` block, `Co-Authored-By` trailer or CI-skip marker is required or accepted as a workflow shortcut. Replace GitHub's generated edit title with a compliant title. Follow the [illustrated browser workflow](training/github-workflow.zh-CN.md).
 
-## Local checks and preview
+## Historical project checks and preview
 
 Use Node.js 22. Installation configures this clone's commit-msg/pre-push hooks:
 
@@ -96,22 +99,11 @@ The development server defaults to `http://127.0.0.1:8042/`. Check who owns an e
 
 ## Preview, versions and releases
 
-![Commit, preview and release workflow](architecture/release-flow.en.svg)
+[![Release composition and promotion](architecture/release-flow.en.svg)](architecture/release-flow.en.svg)
 
-PR/master CI builds and tests with read-only permissions. An independent Pages job deploys only the static artifact and never executes PR code. Pages is a shared slot that another successful build can replace. Check the banner and `deployment.json`, not just the URL. A PR merge-checkout SHA may differ from its head; compare it with the matching CI run.
+This diagram describes the unified target, not a completed retirement of the old hardware site. First verify text, attachment hashes, training and old URLs; retire old deployment only after developer full-site and rollback acceptance. Do not extend a third website release line with new hardware RCs during migration. Existing scripts, tags and releases remain for traceability and recovery; repository archival is separate.
 
-All pushed tags trigger validation. Valid names are `VX.Y.Z` and `VX.Y.Z-rcN`: uppercase `V`, no leading zeros, RC count starting at one. Releases require an annotated tag on a commit in `master` history. Creating a Release in the web UI does not replace that requirement; administrators follow the CONTRIBUTING command sequence. Tag checks run in CI after push.
-
-Release assets include versioned source/material and website archives, a source-commit/SHA-256 `manifest.json`, an SPDX SBOM, English and Chinese changelogs, combined notes and `SHA256SUMS`. The SBOM covers repository distribution, not the physical board BOM. The internal package version manages dependencies; the Tag defines the released site version.
-
-Changelogs accumulate from the previous stable release and retain legacy English Message summaries. Chinese headings/categories are fixed translations; entries stay English.
-
-| Platform | Translation server | Status |
-|---|---|---|
-| GitHub | `-` | API reserved for later integration; no translation credentials needed |
-| GitLab | `-` | Shared Mo-series policy placeholder |
-
-After Release publication, the test platform deploys under `/hardware-docs/`, verifies hashes and the live marker, and invokes the restricted rollback command on smoke-check failure. `OPS_DEPLOY_HOST`, `OPS_DEPLOY_USER`, `OPS_DEPLOY_SSH_KEY` and `OPS_DEPLOY_HOST_KEY` are required. Only test-platform deployment is currently integrated; a stable Release does not establish a production-site deployment. RCs are prereleases and do not replace the latest stable version.
+The new maintenance flow lives in mo-docs/hardware/training/. Independent-site operations in this repository and its old training describe the pre-migration project.
 
 ## Content and license
 
