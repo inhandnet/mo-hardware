@@ -10,14 +10,47 @@ Historical hardware source repository, being consolidated into mo-docs/hardware/
 
 [![Mo repository ownership and unified website](architecture/repository-map.en.svg)](architecture/repository-map.en.svg)
 
-| Repository | Maintained source | Delivery responsibility |
-|---|---|---|
-| **developer** · GitLab | Website components, routes, search, integration and contracts | The complete website, release composition and deployment |
-| [mo-docs](https://github.com/inhandnet/mo-docs) | Software/hardware tutorials, specifications, media, design files and training | Versioned content and reference assets |
-| [mo-tools](https://github.com/inhandnet/mo-tools) | Toolchain/SDK selection, environment setup, reusable tools and Studio | Tool metadata and source packages |
-| [mo-models](https://github.com/inhandnet/mo-models) | Model catalog, compilation resources, compatibility and raw benchmarks | Model references, evidence and artifact status |
-| [mo-examples](https://github.com/inhandnet/mo-examples) | Complete examples with related firmware, clients and configuration | Example sources and their requirements |
-| **Mo\*** · product repositories | Each product's BSP, drivers, root filesystem, image build and flashing | Product images and checksummed release metadata |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="171" align="left">Repository</th>
+      <th width="398" align="left">Maintained source</th>
+      <th width="379" align="left">Delivery responsibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><strong>developer</strong> · GitLab</td>
+      <td align="left">Website components, routes, search, integration and contracts</td>
+      <td align="left">The complete website, release composition and deployment</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-docs">mo-docs</a></td>
+      <td align="left">Software/hardware tutorials, specifications, media, design files and training</td>
+      <td align="left">Versioned content and reference assets</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-tools">mo-tools</a></td>
+      <td align="left">Toolchain/SDK selection, environment setup, reusable tools and Studio</td>
+      <td align="left">Tool metadata and source packages</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-models">mo-models</a></td>
+      <td align="left">Model catalog, compilation resources, compatibility and raw benchmarks</td>
+      <td align="left">Model references, evidence and artifact status</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-examples">mo-examples</a></td>
+      <td align="left">Complete examples with related firmware, clients and configuration</td>
+      <td align="left">Example sources and their requirements</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>Mo*</strong> · product repositories</td>
+      <td align="left">Each product&#x27;s BSP, drivers, root filesystem, image build and flashing</td>
+      <td align="left">Product images and checksummed release metadata</td>
+    </tr>
+  </tbody>
+</table>
 
 `Mo*` covers independently maintained product repositories such as [Mo62A](https://github.com/inhandnet/Mo62A), Mo68A, Mo69A, Mo67A, Mo3588 and Mo3568. The framework does not fix their number. Hardware content and maintainer training move from mo-hardware into mo-docs; mo-hardware remains a historical migration source and is not a separate member of the target website composition.
 
@@ -27,23 +60,92 @@ Each source repository publishes ordinary versions. Developer alone has website 
 
 [![From hardware content to website and releases](architecture/ownership.en.svg)](architecture/ownership.en.svg)
 
-| Path | Hardware content | Training chapter |
-|---|---|---|
-| `products/<product>/overview/` | Product identity, specifications, sources and applicability | [Product](training/categories/01-product.zh-CN.md) |
-| `products/<product>/images/` | Product photographs, connector views and reference captures | [Images](training/categories/02-images.zh-CN.md) |
-| `products/<product>/interfaces/` | Connectors, physical pins, electrical conditions and signals | [Interfaces](training/categories/03-interfaces.zh-CN.md) |
-| `products/<product>/schematics/` | Schematics, circuit explanations and source identifiers | [Schematics](training/categories/04-schematics.zh-CN.md) |
-| `products/<product>/pcb/` | Approved public PCB files, stackups and manufacturing scope | [PCB](training/categories/05-pcb.zh-CN.md) |
-| `products/<product>/mechanical/` | STEP models, dimensions, assembly and reference limits | [Mechanical](training/categories/06-mechanical.zh-CN.md) |
-| `products/<product>/revisions/` | PCB/assembly identification and engineering changes | [Revisions](training/categories/07-revisions.zh-CN.md) |
-| `products/<product>/validation/power-thermal/` | Conditions, meters, raw measurements and conclusions | [Power/thermal](training/categories/08-power-thermal.zh-CN.md) |
-| `products/<product>/validation/interfaces/` | Wiring, methods, acceptance criteria and test results | [Interface tests](training/categories/09-interface-tests.zh-CN.md) |
-| `products/<product>/compliance/` | Certificates, declarations, reports and applicability | [Compliance](training/categories/10-compliance.zh-CN.md) |
-| `accessories/` | Shared accessory records, guides and board relationships | [Accessories](training/categories/11-accessories.zh-CN.md), [compatibility](training/categories/12-compatibility.zh-CN.md) |
-| `templates/` | Reserved category templates; Excel conversion is not implemented | [Template rules](training/README.zh-CN.md#模板与语言规则) |
-| `training/` | Maintainer instructions, examples and screenshots; outside product site mapping | [Web workflow](training/github-workflow.zh-CN.md) |
-| `site/` | Source mapping, configuration, theme, search and generated output | [Architecture](ARCHITECTURE.md), maintained by software engineers |
-| `scripts/`, `tests/`, `.github/`, `.githooks/` | Content checks, governance, tests and releases | Maintained by software engineers |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="246" align="left">Path</th>
+      <th width="351" align="left">Hardware content</th>
+      <th width="351" align="left">Training chapter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/overview/</code></td>
+      <td align="left">Product identity, specifications, sources and applicability</td>
+      <td align="left"><a href="training/categories/01-product.zh-CN.md">Product</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/images/</code></td>
+      <td align="left">Product photographs, connector views and reference captures</td>
+      <td align="left"><a href="training/categories/02-images.zh-CN.md">Images</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/interfaces/</code></td>
+      <td align="left">Connectors, physical pins, electrical conditions and signals</td>
+      <td align="left"><a href="training/categories/03-interfaces.zh-CN.md">Interfaces</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/schematics/</code></td>
+      <td align="left">Schematics, circuit explanations and source identifiers</td>
+      <td align="left"><a href="training/categories/04-schematics.zh-CN.md">Schematics</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/pcb/</code></td>
+      <td align="left">Approved public PCB files, stackups and manufacturing scope</td>
+      <td align="left"><a href="training/categories/05-pcb.zh-CN.md">PCB</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/mechanical/</code></td>
+      <td align="left">STEP models, dimensions, assembly and reference limits</td>
+      <td align="left"><a href="training/categories/06-mechanical.zh-CN.md">Mechanical</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/revisions/</code></td>
+      <td align="left">PCB/assembly identification and engineering changes</td>
+      <td align="left"><a href="training/categories/07-revisions.zh-CN.md">Revisions</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/validation/power-thermal/</code></td>
+      <td align="left">Conditions, meters, raw measurements and conclusions</td>
+      <td align="left"><a href="training/categories/08-power-thermal.zh-CN.md">Power/thermal</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/validation/interfaces/</code></td>
+      <td align="left">Wiring, methods, acceptance criteria and test results</td>
+      <td align="left"><a href="training/categories/09-interface-tests.zh-CN.md">Interface tests</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/compliance/</code></td>
+      <td align="left">Certificates, declarations, reports and applicability</td>
+      <td align="left"><a href="training/categories/10-compliance.zh-CN.md">Compliance</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>accessories/</code></td>
+      <td align="left">Shared accessory records, guides and board relationships</td>
+      <td align="left"><a href="training/categories/11-accessories.zh-CN.md">Accessories</a>, <a href="training/categories/12-compatibility.zh-CN.md">compatibility</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>templates/</code></td>
+      <td align="left">Reserved category templates; Excel conversion is not implemented</td>
+      <td align="left"><a href="training/README.zh-CN.md#%E6%A8%A1%E6%9D%BF%E4%B8%8E%E8%AF%AD%E8%A8%80%E8%A7%84%E5%88%99">Template rules</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>training/</code></td>
+      <td align="left">Maintainer instructions, examples and screenshots; outside product site mapping</td>
+      <td align="left"><a href="training/github-workflow.zh-CN.md">Web workflow</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>site/</code></td>
+      <td align="left">Source mapping, configuration, theme, search and generated output</td>
+      <td align="left"><a href="ARCHITECTURE.md">Architecture</a>, maintained by software engineers</td>
+    </tr>
+    <tr>
+      <td align="left"><code>scripts/</code>, <code>tests/</code>, <code>.github/</code>, <code>.githooks/</code></td>
+      <td align="left">Content checks, governance, tests and releases</td>
+      <td align="left">Maintained by software engineers</td>
+    </tr>
+  </tbody>
+</table>
 
 Contributors maintain ordinary `*.en-US.md` and actual attachment bytes; MDX and frontend coding are not required. The product site is English; training is Chinese. New pages and attachments require a software maintainer to update `site/content-map.json` and navigation. Uploading a file alone does not publish it on the website. Never edit `site/.generated/`, `site/.docusaurus/` or `site/build/`.
 
@@ -59,13 +161,42 @@ The steps below describe the retained historical project. New content belongs in
 4. Apply feedback on the same branch. An Admin squash-merges after required checks; the source branch is deleted automatically.
 5. The merged build updates Pages. An Admin creates a separate annotated Tag to release the test site.
 
-| Action | Write / hardware contributor | Admin |
-|---|---|---|
-| Create, update or delete topic branches; open PRs | Yes | Yes |
-| Directly push or delete `master` | No | Cannot bypass PR / required CI |
-| Merge a PR after successful CI | No | Yes, including their own PR; no additional review required |
-| Create release tags | No | Yes |
-| Rewrite or delete existing tags | No | Also prohibited by the independent immutable-tag rule |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="436" align="left">Action</th>
+      <th width="256" align="left">Write / hardware contributor</th>
+      <th width="256" align="left">Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">Create, update or delete topic branches; open PRs</td>
+      <td align="left">Yes</td>
+      <td align="left">Yes</td>
+    </tr>
+    <tr>
+      <td align="left">Directly push or delete <code>master</code></td>
+      <td align="left">No</td>
+      <td align="left">Cannot bypass PR / required CI</td>
+    </tr>
+    <tr>
+      <td align="left">Merge a PR after successful CI</td>
+      <td align="left">No</td>
+      <td align="left">Yes, including their own PR; no additional review required</td>
+    </tr>
+    <tr>
+      <td align="left">Create release tags</td>
+      <td align="left">No</td>
+      <td align="left">Yes</td>
+    </tr>
+    <tr>
+      <td align="left">Rewrite or delete existing tags</td>
+      <td align="left">No</td>
+      <td align="left">Also prohibited by the independent immutable-tag rule</td>
+    </tr>
+  </tbody>
+</table>
 
 The protection design separates master permissions from non-bypassable PR/CI requirements, and tag creation permissions from non-bypassable tag immutability: two master rules and two tag rules. Existing immutable-tag protection is retained. These four rules are active and have been read back from the repository settings; automatic source-branch deletion is enabled.
 
@@ -88,14 +219,40 @@ npm run start
 
 The development server defaults to `http://127.0.0.1:8042/`. Check who owns an existing preview before using its port. `npm run build` produces the complete site and search index; the development server does not produce full-text search. Checks use the Git file list, so add new files to Git before checking. The optional lightweight material index needs explicit arguments documented in [test/README.md](test/README.md); it does not replace full-site acceptance.
 
-| Variable | Purpose |
-|---|---|
-| `HARDWARE_SITE_URL` | Site origin, for example `https://developer.inhand.online` |
-| `HARDWARE_BASE_URL` | Leading/trailing slash path: `/hardware-docs/` for test, `/mo-hardware/` for Pages |
-| `DOCUMENTATION_URL` | Matching software documentation URL |
-| `DEVELOPER_PORTAL_URL` | Matching portal URL |
-| `HARDWARE_PREVIEW` / `HARDWARE_PREVIEW_LABEL` | Preview banner and build identity |
-| `HARDWARE_ENVIRONMENT` | Environment in `deployment.json` |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="284" align="left">Variable</th>
+      <th width="664" align="left">Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>HARDWARE_SITE_URL</code></td>
+      <td align="left">Site origin, for example <code>https://developer.inhand.online</code></td>
+    </tr>
+    <tr>
+      <td align="left"><code>HARDWARE_BASE_URL</code></td>
+      <td align="left">Leading/trailing slash path: <code>/hardware-docs/</code> for test, <code>/mo-hardware/</code> for Pages</td>
+    </tr>
+    <tr>
+      <td align="left"><code>DOCUMENTATION_URL</code></td>
+      <td align="left">Matching software documentation URL</td>
+    </tr>
+    <tr>
+      <td align="left"><code>DEVELOPER_PORTAL_URL</code></td>
+      <td align="left">Matching portal URL</td>
+    </tr>
+    <tr>
+      <td align="left"><code>HARDWARE_PREVIEW</code> / <code>HARDWARE_PREVIEW_LABEL</code></td>
+      <td align="left">Preview banner and build identity</td>
+    </tr>
+    <tr>
+      <td align="left"><code>HARDWARE_ENVIRONMENT</code></td>
+      <td align="left">Environment in <code>deployment.json</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Preview, versions and releases
 

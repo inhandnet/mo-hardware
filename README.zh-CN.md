@@ -10,14 +10,47 @@
 
 [![Mo 系列仓库职责与统一网站](architecture/repository-map.zh-CN.svg)](architecture/repository-map.zh-CN.svg)
 
-| 仓库 | 人工维护的源内容 | 交付职责 |
-|---|---|---|
-| **developer** · GitLab | 网站组件、路由、搜索、接入层与内容接口 | 完整网站、发布组成清单与部署 |
-| [mo-docs](https://github.com/inhandnet/mo-docs) | 软硬件教程、规格、媒体、设计资料与维护培训 | 版本化内容与参考附件 |
-| [mo-tools](https://github.com/inhandnet/mo-tools) | 工具链/SDK 选择、环境准备、通用开发工具与 Studio | 工具元信息和源码包 |
-| [mo-models](https://github.com/inhandnet/mo-models) | 模型目录、编译资源、兼容关系与原始基准 | 模型引用、验证证据与托管状态 |
-| [mo-examples](https://github.com/inhandnet/mo-examples) | 完整示例及配套固件、客户端和配置 | 示例源码及适用条件 |
-| **Mo\*** · 各型号仓库 | 各自 BSP、驱动、根文件系统、镜像构建与烧录 | 系统镜像及带校验值的发布元信息 |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="171" align="left">仓库</th>
+      <th width="398" align="left">人工维护的源内容</th>
+      <th width="379" align="left">交付职责</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><strong>developer</strong> · GitLab</td>
+      <td align="left">网站组件、路由、搜索、接入层与内容接口</td>
+      <td align="left">完整网站、发布组成清单与部署</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-docs">mo-docs</a></td>
+      <td align="left">软硬件教程、规格、媒体、设计资料与维护培训</td>
+      <td align="left">版本化内容与参考附件</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-tools">mo-tools</a></td>
+      <td align="left">工具链/SDK 选择、环境准备、通用开发工具与 Studio</td>
+      <td align="left">工具元信息和源码包</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-models">mo-models</a></td>
+      <td align="left">模型目录、编译资源、兼容关系与原始基准</td>
+      <td align="left">模型引用、验证证据与托管状态</td>
+    </tr>
+    <tr>
+      <td align="left"><a href="https://github.com/inhandnet/mo-examples">mo-examples</a></td>
+      <td align="left">完整示例及配套固件、客户端和配置</td>
+      <td align="left">示例源码及适用条件</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>Mo*</strong> · 各型号仓库</td>
+      <td align="left">各自 BSP、驱动、根文件系统、镜像构建与烧录</td>
+      <td align="left">系统镜像及带校验值的发布元信息</td>
+    </tr>
+  </tbody>
+</table>
 
 `Mo*` 表示各型号独立的产品仓库，例如 [Mo62A](https://github.com/inhandnet/Mo62A)、Mo68A、Mo69A、Mo67A、Mo3588、Mo3568，框架不固定数量。mo-hardware 的资料与维护培训迁入 mo-docs；mo-hardware 保留为历史迁移来源，不再单列为目标网站发布组成项。
 
@@ -27,23 +60,92 @@
 
 [![从硬件资料到网站和发布物](architecture/ownership.zh-CN.svg)](architecture/ownership.zh-CN.svg)
 
-| 目录 | 硬件工程师维护什么 | 逐项说明 |
-|---|---|---|
-| `products/<product>/overview/` | 产品身份、规格、来源和适用范围 | [产品信息](training/categories/01-product.zh-CN.md) |
-| `products/<product>/images/` | 产品图、接口定位图和资料截图 | [图片](training/categories/02-images.zh-CN.md) |
-| `products/<product>/interfaces/` | 连接器、物理引脚、电气条件与信号定义 | [接口](training/categories/03-interfaces.zh-CN.md) |
-| `products/<product>/schematics/` | 原理图、模块说明、文件标识和来源 | [原理图](training/categories/04-schematics.zh-CN.md) |
-| `products/<product>/pcb/` | 获准公开的 PCB 资料、叠层和制造边界 | [PCB](training/categories/05-pcb.zh-CN.md) |
-| `products/<product>/mechanical/` | STEP、尺寸、装配与参考用途 | [机械](training/categories/06-mechanical.zh-CN.md) |
-| `products/<product>/revisions/` | PCB/装配标识、正式变更与适用文件 | [硬件版本](training/categories/07-revisions.zh-CN.md) |
-| `products/<product>/validation/power-thermal/` | 条件、仪器、功耗/温度原始数据与结论 | [功耗温度](training/categories/08-power-thermal.zh-CN.md) |
-| `products/<product>/validation/interfaces/` | 接线、方法、判定标准与接口测试结果 | [接口测试](training/categories/09-interface-tests.zh-CN.md) |
-| `products/<product>/compliance/` | 证书、声明、报告、有效范围与安装要求 | [合规](training/categories/10-compliance.zh-CN.md) |
-| `accessories/` | 配件共用记录、指南和板卡兼容关系 | [配件](training/categories/11-accessories.zh-CN.md)、[兼容关系](training/categories/12-compatibility.zh-CN.md) |
-| `templates/` | 分类模板预留目录；Excel 方案尚未实现 | [模板与语言规则](training/README.zh-CN.md#模板与语言规则) |
-| `training/` | 维护培训、示例、截图；不进入产品站资料映射 | [完整操作流程](training/github-workflow.zh-CN.md) |
-| `site/` | 映射、站点配置、主题、搜索和构建输出 | 软件维护者负责，详见 [ARCHITECTURE.md](ARCHITECTURE.md) |
-| `scripts/`、`tests/`、`.github/`、`.githooks/` | 内容检查、治理、测试与发布 | 软件维护者负责 |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="246" align="left">目录</th>
+      <th width="351" align="left">硬件工程师维护什么</th>
+      <th width="351" align="left">逐项说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/overview/</code></td>
+      <td align="left">产品身份、规格、来源和适用范围</td>
+      <td align="left"><a href="training/categories/01-product.zh-CN.md">产品信息</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/images/</code></td>
+      <td align="left">产品图、接口定位图和资料截图</td>
+      <td align="left"><a href="training/categories/02-images.zh-CN.md">图片</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/interfaces/</code></td>
+      <td align="left">连接器、物理引脚、电气条件与信号定义</td>
+      <td align="left"><a href="training/categories/03-interfaces.zh-CN.md">接口</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/schematics/</code></td>
+      <td align="left">原理图、模块说明、文件标识和来源</td>
+      <td align="left"><a href="training/categories/04-schematics.zh-CN.md">原理图</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/pcb/</code></td>
+      <td align="left">获准公开的 PCB 资料、叠层和制造边界</td>
+      <td align="left"><a href="training/categories/05-pcb.zh-CN.md">PCB</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/mechanical/</code></td>
+      <td align="left">STEP、尺寸、装配与参考用途</td>
+      <td align="left"><a href="training/categories/06-mechanical.zh-CN.md">机械</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/revisions/</code></td>
+      <td align="left">PCB/装配标识、正式变更与适用文件</td>
+      <td align="left"><a href="training/categories/07-revisions.zh-CN.md">硬件版本</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/validation/power-thermal/</code></td>
+      <td align="left">条件、仪器、功耗/温度原始数据与结论</td>
+      <td align="left"><a href="training/categories/08-power-thermal.zh-CN.md">功耗温度</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/validation/interfaces/</code></td>
+      <td align="left">接线、方法、判定标准与接口测试结果</td>
+      <td align="left"><a href="training/categories/09-interface-tests.zh-CN.md">接口测试</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>products/&lt;product&gt;/compliance/</code></td>
+      <td align="left">证书、声明、报告、有效范围与安装要求</td>
+      <td align="left"><a href="training/categories/10-compliance.zh-CN.md">合规</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>accessories/</code></td>
+      <td align="left">配件共用记录、指南和板卡兼容关系</td>
+      <td align="left"><a href="training/categories/11-accessories.zh-CN.md">配件</a>、<a href="training/categories/12-compatibility.zh-CN.md">兼容关系</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>templates/</code></td>
+      <td align="left">分类模板预留目录；Excel 方案尚未实现</td>
+      <td align="left"><a href="training/README.zh-CN.md#%E6%A8%A1%E6%9D%BF%E4%B8%8E%E8%AF%AD%E8%A8%80%E8%A7%84%E5%88%99">模板与语言规则</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>training/</code></td>
+      <td align="left">维护培训、示例、截图；不进入产品站资料映射</td>
+      <td align="left"><a href="training/github-workflow.zh-CN.md">完整操作流程</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>site/</code></td>
+      <td align="left">映射、站点配置、主题、搜索和构建输出</td>
+      <td align="left">软件维护者负责，详见 <a href="ARCHITECTURE.md">ARCHITECTURE.md</a></td>
+    </tr>
+    <tr>
+      <td align="left"><code>scripts/</code>、<code>tests/</code>、<code>.github/</code>、<code>.githooks/</code></td>
+      <td align="left">内容检查、治理、测试与发布</td>
+      <td align="left">软件维护者负责</td>
+    </tr>
+  </tbody>
+</table>
 
 日常修改使用普通 `*.en-US.md` 和真实附件，不要求硬件工程师维护 MDX 或前端代码。网站当前为英文；培训手册为中文。新增页面、图片或附件必须由软件维护者检查 `site/content-map.json` 的映射及导航，上传文件本身不等于网站已展示。`site/.generated/`、`site/.docusaurus/`、`site/build/` 为生成目录，不手工编辑。
 
@@ -59,13 +161,42 @@
 4. 处理反馈并继续提交到同一分支；检查成功后，由 Admin squash 合并。合并自动删除源分支。
 5. 合并更新 Pages 工程预览；发布测试平台需要 Admin 另建 annotated Tag。
 
-| 操作 | Write / 硬件贡献者 | Admin |
-|---|---|---|
-| 创建、修改、删除临时分支；提 PR | 可以 | 可以 |
-| 直接推送或删除 `master` | 不允许 | 不允许绕过 PR / 必需 CI |
-| CI 成功后合并 PR | 不可以 | 可以；自己的 PR 也可自行合并，不强制额外审批 |
-| 创建发布 Tag | 不可以 | 可以 |
-| 改写或删除现有 Tag | 不允许 | 独立不可变规则同样禁止 |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="436" align="left">操作</th>
+      <th width="256" align="left">Write / 硬件贡献者</th>
+      <th width="256" align="left">Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">创建、修改、删除临时分支；提 PR</td>
+      <td align="left">可以</td>
+      <td align="left">可以</td>
+    </tr>
+    <tr>
+      <td align="left">直接推送或删除 <code>master</code></td>
+      <td align="left">不允许</td>
+      <td align="left">不允许绕过 PR / 必需 CI</td>
+    </tr>
+    <tr>
+      <td align="left">CI 成功后合并 PR</td>
+      <td align="left">不可以</td>
+      <td align="left">可以；自己的 PR 也可自行合并，不强制额外审批</td>
+    </tr>
+    <tr>
+      <td align="left">创建发布 Tag</td>
+      <td align="left">不可以</td>
+      <td align="left">可以</td>
+    </tr>
+    <tr>
+      <td align="left">改写或删除现有 Tag</td>
+      <td align="left">不允许</td>
+      <td align="left">独立不可变规则同样禁止</td>
+    </tr>
+  </tbody>
+</table>
 
 保护设计为两条 master 规则与两条 Tag 规则：主线操作权限与无 bypass 的 PR/CI 检查分开；Tag 创建权限与无 bypass 的不可变性分开。保留已有 Tag 不可变保护。这四条规则已在远端实施并回读；合并后自动删除源分支已开启。
 
@@ -88,14 +219,40 @@ npm run start
 
 本地开发默认 `http://127.0.0.1:8042/`。若已有预览服务，先确认其归属，不占用或停止其他任务端口。`npm run build` 构建完整站点；`npm run start` 的开发服务器不生成完整搜索索引。检查读取 Git 文件清单，新增文件需先纳入 Git。`npm run preview:build` 的旧轻量资料索引通过显式参数运行，见 [test/README.md](test/README.md)，不替代完整站点验收。
 
-| 变量 | 用途 |
-|---|---|
-| `HARDWARE_SITE_URL` | 本站 origin，例如 `https://developer.inhand.online` |
-| `HARDWARE_BASE_URL` | 带前后斜杠的路径；测试站 `/hardware-docs/`，Pages `/mo-hardware/` |
-| `DOCUMENTATION_URL` | 与当前环境匹配的软件文档入口 |
-| `DEVELOPER_PORTAL_URL` | 与当前环境匹配的开发者主站入口 |
-| `HARDWARE_PREVIEW` / `HARDWARE_PREVIEW_LABEL` | 工程预览提示与构建标识 |
-| `HARDWARE_ENVIRONMENT` | 在线 `deployment.json` 的环境标识 |
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="284" align="left">变量</th>
+      <th width="664" align="left">用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>HARDWARE_SITE_URL</code></td>
+      <td align="left">本站 origin，例如 <code>https://developer.inhand.online</code></td>
+    </tr>
+    <tr>
+      <td align="left"><code>HARDWARE_BASE_URL</code></td>
+      <td align="left">带前后斜杠的路径；测试站 <code>/hardware-docs/</code>，Pages <code>/mo-hardware/</code></td>
+    </tr>
+    <tr>
+      <td align="left"><code>DOCUMENTATION_URL</code></td>
+      <td align="left">与当前环境匹配的软件文档入口</td>
+    </tr>
+    <tr>
+      <td align="left"><code>DEVELOPER_PORTAL_URL</code></td>
+      <td align="left">与当前环境匹配的开发者主站入口</td>
+    </tr>
+    <tr>
+      <td align="left"><code>HARDWARE_PREVIEW</code> / <code>HARDWARE_PREVIEW_LABEL</code></td>
+      <td align="left">工程预览提示与构建标识</td>
+    </tr>
+    <tr>
+      <td align="left"><code>HARDWARE_ENVIRONMENT</code></td>
+      <td align="left">在线 <code>deployment.json</code> 的环境标识</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 预览、版本与发布
 
