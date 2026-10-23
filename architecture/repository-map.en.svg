@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 800" role="img" aria-labelledby="title desc"><title id="title">Mo series · repository collaboration</title><desc id="desc">Repositories publish independently; versions, provenance and links define the handoff.</desc><rect width="1120" height="800" rx="20" fill="#f4f8f6"/><style>text{font-family:Arial,"Noto Sans CJK SC",sans-serif}.h{font-size:30px;font-weight:700;fill:#133d32}.s{font-size:16px;fill:#526b63}.t{font-size:22px;font-weight:700;fill:#153d33}.k{font-size:16px;font-weight:700;fill:#007d52}.p{font-size:15px;fill:#435d54}</style><text class="h" x="40" y="58">Mo series · repository collaboration</text><text class="s" x="40" y="92">Repositories publish independently; versions, provenance and links define the handoff.</text>
+<rect x="40" y="130" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="130" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="172">developer</text><text class="k" x="64" y="210">Developer portal</text>
+<text class="p" x="64" y="245">Product entry points, navigation and release</text>
+<text class="p" x="64" y="269">aggregation.</text>
+<rect x="580" y="130" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="130" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="172">Mo*</text><text class="k" x="604" y="210">One BSP / image repository per model</text>
+<text class="p" x="604" y="245">System adaptation and software baselines for</text>
+<text class="p" x="604" y="269">validation.</text>
+<rect x="40" y="332" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="332" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="374">mo-hardware</text><text class="k" x="64" y="412">Hardware material and website</text>
+<text class="p" x="64" y="447">Products, files, validation, compliance and</text>
+<text class="p" x="64" y="471">accessories.</text>
+<rect x="580" y="332" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="332" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="374">mo-docs</text><text class="k" x="604" y="412">Software documentation</text>
+<text class="p" x="604" y="447">OS, configuration and application guides; hardware</text>
+<text class="p" x="604" y="471">links.</text>
+<rect x="40" y="534" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="534" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="576">mo-tools / mo-models</text><text class="k" x="64" y="614">Tools and models</text>
+<text class="p" x="64" y="649">Pinned tools, model inventories and measured baselines.</text>
+<rect x="580" y="534" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="534" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="576">mo-examples</text><text class="k" x="604" y="614">Runnable device applications</text>
+<text class="p" x="604" y="649">Maintainer training examples remain in mo-hardware.</text>
+<text class="s" x="40" y="771">Matching version numbers do not imply compatibility. Excel conversion and production hosting remain future work.</text></svg>

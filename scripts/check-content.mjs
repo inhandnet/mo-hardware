@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
+import {validateContentMap} from './lib/content-map.mjs';
 
 export const productDirectories = [
   'images', 'interfaces', 'schematics', 'pcb', 'mechanical', 'revisions',
@@ -62,6 +63,7 @@ export function checkContent(root = process.cwd()) {
     if (!files.includes(required)) errors.push(`missing required file: ${required}`);
   }
   if (errors.length) throw new Error(errors.join('\n'));
+  validateContentMap(root, JSON.parse(fs.readFileSync(path.join(root, 'site/content-map.json'), 'utf8')));
   return files;
 }
 

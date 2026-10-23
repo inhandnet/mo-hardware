@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        For product usage questions, visit https://community.inhand.com.
+        For product usage questions, visit https://developer.inhand.online/contact/.
         Do not post confidential material or vulnerabilities; see SECURITY.md.
   - type: input
     id: record

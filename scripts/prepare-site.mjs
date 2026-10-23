@@ -1,9 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {validateContentMap} from './lib/content-map.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const map=JSON.parse(fs.readFileSync(path.join(root,'site/content-map.json'),'utf8'));
+const map=validateContentMap(root,JSON.parse(fs.readFileSync(path.join(root,'site/content-map.json'),'utf8')));
 const generated=path.join(root,'site/.generated');
 // Only this build-owned directory is replaced; source material is never changed.
 fs.rmSync(generated,{recursive:true,force:true});
@@ -16,7 +17,7 @@ for(const record of map.routes){
   let content=fs.readFileSync(source,'utf8');
   // External software links must be concrete at build time for broken-link checks.
   content=content.replace(/\]\(\/docs(\/[^)]*)\)/g,(_,suffix)=>`](${docsURL}${suffix})`);
-  content=content.replace(/^---\n/,'---\nslug: /'+record.route+'\n');
+  content=content.replace(/^---\r?\n/,'---\nslug: /'+record.route+'\n');
   const destination=path.join(generated,'docs',record.original.replace(/^docs\//,'').replace(/\.mdx$/,'.md'));
   fs.mkdirSync(path.dirname(destination),{recursive:true});fs.writeFileSync(destination,content);
 }

@@ -38,10 +38,15 @@ test('manifest preserves actual hashes and does not advertise placeholder produc
   assert.throws(() => buildManifest(process.cwd(), '../V1.0.1'), /invalid version/);
 });
 
-test('bilingual changelog describes hardware and rejects missing translations', () => {
+test('changelog keeps English entries with translated headings and legacy summaries', () => {
   const message = 'docs: add hardware reference\n\nMessage:\n  en: Add hardware reference.\n  zh: 增加硬件参考。';
   const commit = parseCommitMessage(message, '0123456789abcdef');
   assert.match(renderChangelog('V1.0.1-rc1', [commit], 'en'), /Mo hardware/);
-  assert.match(renderChangelog('V1.0.1-rc1', [commit], 'zh'), /增加硬件参考/);
-  assert.throws(() => parseCommitMessage('docs: add reference\n\nMessage:\n  en: Only English.'), /en and zh/);
+  const chinese = renderChangelog('V1.0.1-rc1', [commit], 'zh');
+  assert.match(chinese, /Mo 硬件资料/);
+  assert.match(chinese, /## 文档/);
+  assert.match(chinese, /Add hardware reference/);
+  assert.doesNotMatch(chinese, /增加硬件参考/);
+  assert.equal(parseCommitMessage('docs: add reference').en, 'add reference');
+  assert.equal(parseCommitMessage('fix: restore download\n\nMessage.en:\nRestore the checked file.\n\nMessage.zh-CN:\n恢复。').en, 'Restore the checked file.');
 });

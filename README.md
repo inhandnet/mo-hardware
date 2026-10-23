@@ -2,119 +2,119 @@
 
 English | [简体中文](README.zh-CN.md)
 
-Versioned hardware documentation and reference files for InHand Mo boards.
-The hardware site builds and publishes independently with the visual style of
-[mo-docs](https://github.com/inhandnet/mo-docs). Hardware contributors maintain
-material; the software team maintains page templates and build automation.
-This repository does not contain BSP, SDK or device application code.
+Hardware references and an independently built documentation site for InHand Mo boards. Hardware engineers own product information, connectors, design files, mechanical references, revisions, validation, compliance and accessory records. Software maintainers own routing, templates, checks and release automation.
 
-## Status
+**Start with the [hardware maintainer training guide (Chinese)](training/README.zh-CN.md).** It includes a browser-first GitHub walkthrough, screenshots, a complete exercise and detailed instructions for every content category. Developers should also read [CONTRIBUTING.md](CONTRIBUTING.md); [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md) defines the content and website handoff.
 
-The first site migration preserves the hardware, compliance and accessory pages
-from [mo-docs at cbc6053](https://github.com/inhandnet/mo-docs/tree/cbc60530f3fa04ebdf7870dcfe47d08e753fb636).
-The route/source map records all 33 inherited pages. The site adds three entry
-pages, with the same theme, fonts, search and table layout as mo-docs.
-Mo62A material includes reviewed images, STEP and schematic PDF downloads.
+## Role in the Mo series
 
-Mo68A website references retain their original content and Coming soon status;
-the Overview already contained specifications. Its `products/mo68a/` directories
-remain empty. No new Mo68A validation or source-code changes are implied.
-Excel templates and semantic conversion remain planned. The inventory is not
-a validated hardware catalog; manual measurements are not product maximums.
+![Mo repository collaboration](architecture/repository-map.en.svg)
 
-## Layout and ownership
+| Repository | Responsibility | Relationship to mo-hardware |
+|---|---|---|
+| `developer` | Portal, product navigation and release aggregation | Links to `/hardware-docs/` |
+| `Mo*` | A separate BSP, image and adaptation repository for each model | Records identify the applicable board and software baseline |
+| `mo-docs` | OS, software configuration and application guides | Links to hardware pages; inherited hardware URLs redirect here |
+| `mo-hardware` | Hardware material, pages and validation records | Own sources, builds, previews and releases |
+| `mo-tools` | Toolchain, host scripts and board test tools | Records reference exact tool versions |
+| `mo-models` | Model inventory, compatibility and benchmarks | Workload records identify the model version |
+| `mo-examples` | Runnable device applications | Hardware tests may reference applications; maintainer exercises stay here |
 
-| Path | Purpose |
-| --- | --- |
-| `products/<product>/product.xlsx` | Planned product identity and specifications workbook |
-| `products/<product>/images/` | Standard product images |
-| `products/<product>/interfaces/` | Connector definitions, pin tables and electrical limits |
-| `products/<product>/schematics/` | Schematics and hardware module descriptions |
-| `products/<product>/pcb/` | PCB material approved for public distribution |
-| `products/<product>/mechanical/` | STEP, dimensions, tolerances and assembly references |
-| `products/<product>/revisions/` | Board identification and revision history |
-| `products/<product>/validation/power-thermal/` | Workload definitions, meter readings and telemetry |
-| `products/<product>/validation/interfaces/` | Interface validation methods and results |
-| `products/<product>/compliance/` | Applicable declarations, certificates and reports |
-| `accessories/` | Shared accessory records and product compatibility |
-| `templates/` | Reserved category-specific Excel and Markdown templates |
-| `site/` | Docusaurus theme, navigation, source map and generated-site configuration |
-| `test/` | Optional lightweight material index; Pages uses the full site |
-| `scripts/`, `tests/`, `.github/`, `.githooks/` | Automation maintained by the software team |
+`Mo*` represents per-model BSP/image repositories without fixing their number. Repository releases, PCB revisions, assembly/BOM revisions, document revisions, template versions and software versions are separate identifiers. Matching numbers do not establish compatibility. Routine hardware releases do not rebuild mo-docs.
 
-Hardware contributors currently maintain ordinary `*.en-US.md` and attachments
-in the content directories; no MDX or frontend code is required. Excel input
-will follow when the category templates and converter are available.
-Do not duplicate one accessory under multiple products. Record applicability
-by product, hardware revision and, where relevant, tested software baseline.
+## Internal architecture and ownership
 
-The website integration contract is described in [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md).
+![From hardware content to website and releases](architecture/content-flow.en.svg)
 
-## Local website
+| Path | Hardware content | Training chapter |
+|---|---|---|
+| `products/<product>/overview/` | Product identity, specifications, sources and applicability | [Product](training/categories/01-product.zh-CN.md) |
+| `products/<product>/images/` | Product photographs, connector views and reference captures | [Images](training/categories/02-images.zh-CN.md) |
+| `products/<product>/interfaces/` | Connectors, physical pins, electrical conditions and signals | [Interfaces](training/categories/03-interfaces.zh-CN.md) |
+| `products/<product>/schematics/` | Schematics, circuit explanations and source identifiers | [Schematics](training/categories/04-schematics.zh-CN.md) |
+| `products/<product>/pcb/` | Approved public PCB files, stackups and manufacturing scope | [PCB](training/categories/05-pcb.zh-CN.md) |
+| `products/<product>/mechanical/` | STEP models, dimensions, assembly and reference limits | [Mechanical](training/categories/06-mechanical.zh-CN.md) |
+| `products/<product>/revisions/` | PCB/assembly identification and engineering changes | [Revisions](training/categories/07-revisions.zh-CN.md) |
+| `products/<product>/validation/power-thermal/` | Conditions, meters, raw measurements and conclusions | [Power/thermal](training/categories/08-power-thermal.zh-CN.md) |
+| `products/<product>/validation/interfaces/` | Wiring, methods, acceptance criteria and test results | [Interface tests](training/categories/09-interface-tests.zh-CN.md) |
+| `products/<product>/compliance/` | Certificates, declarations, reports and applicability | [Compliance](training/categories/10-compliance.zh-CN.md) |
+| `accessories/` | Shared accessory records, guides and board relationships | [Accessories](training/categories/11-accessories.zh-CN.md), [compatibility](training/categories/12-compatibility.zh-CN.md) |
+| `templates/` | Reserved category templates; Excel conversion is not implemented | [Template rules](training/README.zh-CN.md#模板与语言规则) |
+| `training/` | Maintainer instructions, examples and screenshots; outside product site mapping | [Web workflow](training/github-workflow.zh-CN.md) |
+| `site/` | Source mapping, configuration, theme, search and generated output | [Architecture](ARCHITECTURE.md), maintained by software engineers |
+| `scripts/`, `tests/`, `.github/`, `.githooks/` | Content checks, governance, tests and releases | Maintained by software engineers |
+
+Contributors maintain ordinary `*.en-US.md` and actual attachment bytes; MDX and frontend coding are not required. The product site is English; training is Chinese. New pages and attachments require a software maintainer to update `site/content-map.json` and navigation. Uploading a file alone does not publish it on the website. Never edit `site/.generated/`, `site/.docusaurus/` or `site/build/`.
+
+The source map retains 33 pages migrated from mo-docs `cbc6053`, plus three entry pages. Mo62A has source text, images, complete schematic PDFs and a STEP ZIP. Mo68A material directories remain reserved; inherited specifications and Coming soon pages do not constitute new validation. Excel `product.xlsx` / `record.xlsx`, field semantics and conversion remain future work. `manifest.json` is a file/source inventory; `records: []` does not claim structured hardware qualification.
+
+## Maintenance and permissions
+
+1. Locate the source, establish provenance, board/assembly applicability and publication scope.
+2. Create a topic branch from current `master`; edit text and attachments while preserving download compatibility.
+3. Open a PR to `master`, inspect the diff, `commit-message`, `ci` and the corresponding site preview.
+4. Apply feedback on the same branch. An Admin squash-merges after required checks; the source branch is deleted automatically.
+5. The merged build updates Pages. An Admin creates a separate annotated Tag to release the test site.
+
+| Action | Write / hardware contributor | Admin |
+|---|---|---|
+| Create, update or delete topic branches; open PRs | Yes | Yes |
+| Directly push or delete `master` | No | Cannot bypass PR / required CI |
+| Merge a PR after successful CI | No | Yes, including their own PR; no additional review required |
+| Create release tags | No | Yes |
+| Rewrite or delete existing tags | No | Also prohibited by the independent immutable-tag rule |
+
+The protection design separates master permissions from non-bypassable PR/CI requirements, and tag creation permissions from non-bypassable tag immutability: two master rules and two tag rules. Existing immutable-tag protection is retained. These four rules are active and have been read back from the repository settings; automatic source-branch deletion is enabled.
+
+Use short English Conventional Commit titles, for example `docs(mechanical): clarify reference model usage`. Titles are limited to 72 characters; a body is optional. No bilingual `Message:` block, `Co-Authored-By` trailer or CI-skip marker is required or accepted as a workflow shortcut. Replace GitHub's generated edit title with a compliant title. Follow the [illustrated browser workflow](training/github-workflow.zh-CN.md).
+
+## Local checks and preview
+
+Use Node.js 22. Installation configures this clone's commit-msg/pre-push hooks:
 
 ```bash
-npm ci --ignore-scripts
-npm run start                 # http://127.0.0.1:8042/
-npm run typecheck
+npm ci
 npm test
+npm run typecheck
+node scripts/check-content.mjs
 npm run build
 npx playwright install chromium
 npm run test:site
+npm run start
 ```
 
-`scripts/prepare-site.mjs` builds `site/.generated/` from the source map. Do not
-edit generated pages. `HARDWARE_BASE_URL` sets the hosting subpath;
-`DOCUMENTATION_URL` and `DEVELOPER_PORTAL_URL` select the matching software site
-and portal. Production build output is `site/build/`.
+The development server defaults to `http://127.0.0.1:8042/`. Check who owns an existing preview before using its port. `npm run build` produces the complete site and search index; the development server does not produce full-text search. Checks use the Git file list, so add new files to Git before checking. The optional lightweight material index needs explicit arguments documented in [test/README.md](test/README.md); it does not replace full-site acceptance.
 
-## Contribution and permissions
+| Variable | Purpose |
+|---|---|
+| `HARDWARE_SITE_URL` | Site origin, for example `https://developer.inhand.online` |
+| `HARDWARE_BASE_URL` | Leading/trailing slash path: `/hardware-docs/` for test, `/mo-hardware/` for Pages |
+| `DOCUMENTATION_URL` | Matching software documentation URL |
+| `DEVELOPER_PORTAL_URL` | Matching portal URL |
+| `HARDWARE_PREVIEW` / `HARDWARE_PREVIEW_LABEL` | Preview banner and build identity |
+| `HARDWARE_ENVIRONMENT` | Environment in `deployment.json` |
 
-Anyone can fork this public repository and submit a pull request to `master`.
-Only repository administrators can update upstream branches, merge pull
-requests or create tags. Administrators must also use a PR and pass the
-`commit-message` and `ci` checks for `master` changes.
+## Preview, versions and releases
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md). Enable local checks with:
+![Commit, preview and release workflow](architecture/release-flow.en.svg)
 
-```bash
-git config core.hooksPath .githooks
-```
+PR/master CI builds and tests with read-only permissions. An independent Pages job deploys only the static artifact and never executes PR code. Pages is a shared slot that another successful build can replace. Check the banner and `deployment.json`, not just the URL. A PR merge-checkout SHA may differ from its head; compare it with the matching CI run.
 
-Product usage questions belong in the [community forum](https://community.inhand.com).
-See [SECURITY.md](SECURITY.md) for sensitive reports.
+All pushed tags trigger validation. Valid names are `VX.Y.Z` and `VX.Y.Z-rcN`: uppercase `V`, no leading zeros, RC count starting at one. Releases require an annotated tag on a commit in `master` history. Creating a Release in the web UI does not replace that requirement; administrators follow the CONTRIBUTING command sequence. Tag checks run in CI after push.
 
-## Releases
+Release assets include versioned source/material and website archives, a source-commit/SHA-256 `manifest.json`, an SPDX SBOM, English and Chinese changelogs, combined notes and `SHA256SUMS`. The SBOM covers repository distribution, not the physical board BOM. The internal package version manages dependencies; the Tag defines the released site version.
 
-An administrator pushes an annotated tag `V<major>.<minor>.<patch>` or
-`V<major>.<minor>.<patch>-rc<n>` pointing to a commit on `master`.
-The workflow reruns CI, generates English and Chinese changelogs, and publishes:
+Changelogs accumulate from the previous stable release and retain legacy English Message summaries. Chinese headings/categories are fixed translations; entries stay English.
 
-- A versioned source/material archive.
-- A deployable static-site archive, `mo-hardware-site-<tag>.tar.gz`.
-- A SHA-256 file inventory (`manifest.json`) with the source commit.
-- An SPDX SBOM for the repository distribution, not the physical board BOM.
-- English and Chinese changelogs and `SHA256SUMS`.
+| Platform | Translation server | Status |
+|---|---|---|
+| GitHub | `-` | API reserved for later integration; no translation credentials needed |
+| GitLab | `-` | Shared Mo-series policy placeholder |
 
-The Release title is the tag alone. RC tags create prereleases and do not
-replace the latest stable release. Published tags are immutable.
-After publication, tags deploy the static-site archive to the test platform's
-`/hardware-docs/` URL through the restricted `deploy-hardware` command. CI checks
-checksums and the deployed version; a failed smoke check invokes rollback.
-Deployment secrets must be configured; missing credentials fail the job.
-The production platform is not configured, and RCs never deploy to production.
-Routine hardware updates do not rebuild mo-docs. Its legacy hardware pages
-redirect to the corresponding hardware URLs, preserving fragments.
-GitHub Pages is a full-site PR preview; see [test/README.md](test/README.md).
-Repository release versions are separate from PCB and document revisions.
+After Release publication, the test platform deploys under `/hardware-docs/`, verifies hashes and the live marker, and invokes the restricted rollback command on smoke-check failure. `OPS_DEPLOY_HOST`, `OPS_DEPLOY_USER`, `OPS_DEPLOY_SSH_KEY` and `OPS_DEPLOY_HOST_KEY` are required. Only test-platform deployment is currently integrated; a stable Release does not establish a production-site deployment. RCs are prereleases and do not replace the latest stable version.
 
-## License
+## Content and license
 
-Original documentation and material are licensed under
-[Creative Commons Attribution-ShareAlike 4.0 International](LICENSE),
-the same license used by mo-docs, unless explicitly stated otherwise.
-Third-party material retains its own license and notices; use an official
-link when redistribution permission is unavailable. This license does not
-grant patent or trademark rights or establish hardware certification.
+Specifications require attributable source material; test results require conditions and original evidence. Keep unrecorded, untested, design-reference and passing-test states distinct. Training exercises are not hardware evidence. Website content contains no sale prices; purchasing links lead to the store.
 
-Website dependencies, fonts, markdown-it and their dependencies retain the licenses
-shipped by their respective packages; they are not relicensed under CC BY-SA.
+Use the [contact page](https://developer.inhand.online/contact/) for product questions, Issues/PRs for documentation corrections and [SECURITY.md](SECURITY.md) for sensitive reports. Original content is licensed under [CC BY-SA 4.0](LICENSE). Third-party attachments, fonts, software and GitHub documentation screenshots retain their own licenses and notices; use official links when redistribution rights are unavailable. Content licensing does not grant patent/trademark rights or establish hardware certification.

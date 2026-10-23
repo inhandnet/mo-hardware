@@ -2,10 +2,10 @@
 
 GitHub Pages uses the same full Docusaurus site as releases. Pull-request CI
 builds and tests with read-only permissions and no deployment secrets. After
-successful CI, a workflow on the default branch downloads the static artifact;
+successful PR or master CI, a workflow on the default branch downloads the static artifact;
 the separate Pages deployment job does not install or execute PR code.
 
-Pages is a single latest-successful-PR preview slot, not a release platform.
+Pages is a single shared successful-PR/master preview slot, not a release platform.
 The preview banner identifies the PR/build; artifacts remain available for
 seven days. Fork workflows may require GitHub administrator approval.
 A manual Pages dispatch builds trusted master with the same templates.

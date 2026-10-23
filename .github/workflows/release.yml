@@ -2,7 +2,7 @@ name: release
 
 on:
   push:
-    tags: ['V*']
+    tags: ['**']
 
 permissions:
   contents: read
@@ -14,6 +14,7 @@ concurrency:
 env:
   TAG: ${{ github.ref_name }}
   REPO_NAME: mo-hardware
+  HARDWARE_ENVIRONMENT: test
   HARDWARE_BASE_URL: /hardware-docs/
   HARDWARE_SITE_URL: ${{ vars.WEBSITE_SITE_URL || 'https://developer.inhand.online' }}
   DOCUMENTATION_URL: ${{ vars.DOCUMENTATION_URL || 'https://developer.inhand.online/docs' }}
@@ -37,31 +38,16 @@ jobs:
           node-version: '22'
       - name: Validate tag and source
         run: |
-          pattern='^V(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-rc[1-9][0-9]*)?$'
-          if [[ ! $TAG =~ $pattern ]]; then
-            echo '::error::expected VX.Y.Z or VX.Y.Z-rcN'
-            exit 1
-          fi
-          test "$(git cat-file -t "refs/tags/$TAG")" = tag
-          SOURCE_COMMIT=$(git rev-parse "refs/tags/$TAG^{commit}")
-          test "$SOURCE_COMMIT" = "$(git rev-parse HEAD)"
-          git merge-base --is-ancestor "$SOURCE_COMMIT" refs/remotes/origin/master
-          scripts/check-commit-msg.sh --revs -1 "$SOURCE_COMMIT" --require-bilingual
-      - name: Build inventory and bilingual changelog
+          node scripts/check-release.mjs "$TAG"
+      - name: Build inventory and changelogs
         run: |
           node scripts/check-content.mjs
           node scripts/build-manifest.mjs "$TAG" dist/manifest.json
           node scripts/generate-changelog.mjs --version "$TAG" --output dist
       - name: Build deployable hardware site
         run: |
-          npm ci --ignore-scripts
+          npm ci
           npm run build
-          node --input-type=module -e '
-            import fs from "node:fs";
-            fs.writeFileSync("site/build/deployment.json", JSON.stringify({
-              version: process.env.TAG, commit: process.env.GITHUB_SHA,
-              repository: process.env.GITHUB_REPOSITORY
-            }) + "\n");'
           tar -C site/build -czf "dist/$REPO_NAME-site-$TAG.tar.gz" .
       - name: Package source and material
         run: |
@@ -131,7 +117,7 @@ jobs:
       DEPLOY_USER: ${{ secrets.OPS_DEPLOY_USER }}
       DEPLOY_SSH_KEY: ${{ secrets.OPS_DEPLOY_SSH_KEY }}
       DEPLOY_HOST_KEY: ${{ secrets.OPS_DEPLOY_HOST_KEY }}
-      DEPLOY_URL: https://developer.inhand.online/hardware-docs/
+      DEPLOY_URL: ${{ vars.WEBSITE_SITE_URL || 'https://developer.inhand.online' }}/hardware-docs/
     steps:
       - uses: actions/checkout@v7
         with:

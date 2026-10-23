@@ -1,61 +1,60 @@
 # Contributing to mo-hardware
 
-Anyone can fork this public repository and open a PR to `master`.
-Only administrators merge PRs or create tags. All changes to `master`, including
-administrator changes, must pass `commit-message` and `ci` through a PR.
+Hardware contributors should begin with the [illustrated training guide](training/README.zh-CN.md). Maintain the authoritative files under `products/` or `accessories/`, including their provenance, applicable revisions, actual validation and untested scope. Current inputs are ordinary Markdown and attachment bytes; Excel conversion is not implemented. Read [CONTENT-CONTRACT.md](CONTENT-CONTRACT.md).
 
-## Hardware content
+## Branches and messages
 
-Use the categories in [README.md](README.md) and the
-[content contract](CONTENT-CONTRACT.md). Excel templates are still pending;
-the current CI does not verify hardware facts or workbook field semantics.
-Do not upload confidential records, credentials or unlicensed third-party files.
-Keep one authoritative copy of each record and state the validation scope.
+Write collaborators may create, update and delete topic branches. External contributors can fork the public repository. Start from current master and open a PR to master; only Admins merge or create release tags. Required `commit-message` and `ci` checks apply to Admins too. An Admin may merge their own PR without a second approval. Squash merges delete their source branches automatically.
 
-Usage questions belong in the [community forum](https://community.inhand.com).
-Use Issues for corrections and requests; follow [SECURITY.md](SECURITY.md)
-for sensitive reports.
-
-## Local checks
-
-```bash
-git config core.hooksPath .githooks
-npm ci --ignore-scripts
-npm test
-node scripts/check-content.mjs
-```
-
-CI also checks shell syntax, ShellCheck, YAML and the release manifest build.
-Files are checked from the Git index/list; stage new files before local checks.
-The commit and pre-push hooks both enforce bilingual messages.
-
-## Commit and PR messages
-
-Use `<type>(<scope>): <subject>`; scope is optional. Types are `feat`, `fix`,
-`docs`, `refactor`, `sync`, `ci`, `chore`. Use a lowercase initial subject,
-no trailing period, and a title of at most 72 characters. Separate the body
-with a blank line. Keep body lines short and finish with exactly one block:
+Use a short English Conventional Commit title, such as:
 
 ```text
-docs(mechanical): add a revision-specific assembly reference
-
-Message:
-  en: Add a revision-specific assembly reference.
-  zh: 补充对应版本的装配参考资料。
+docs(mechanical): clarify the reference model scope
 ```
 
-The PR title and body form the squash commit. Every contributed commit also
-needs its own valid Message block. Do not include internal infrastructure or
-credentials in public messages. Administrators use squash merge after checks
-pass; do not bypass the checks with a direct push.
+Scope is optional; types are listed in `config/repository-policy.json`. Start the subject with a lowercase letter, do not end with a period, and keep the title within 72 characters. An optional body starts after a blank line and normally wraps at 72 characters; URL/code lines are exempt. No bilingual Message block is required. Do not add Co-Authored-By trailers, CI-skip markers, private infrastructure details or credentials. Legacy messages remain readable through the repository-specific history boundary.
+
+PR titles use the same convention. PR bodies describe the change, sources, applicability, verification and unresolved items. GitHub's default file-edit titles may not comply: replace them before saving. A later valid commit does not repair an earlier invalid title in the same PR.
+
+## Local verification
+
+Use Node.js 22 (`.nvmrc`). `npm ci` installs local commit-msg/pre-push hooks and the commit template. CI sets `CI=true` and does not install local hooks. Web edits are checked by CI after saving.
+
+```bash
+npm ci
+git add <specific-new-paths>
+npm test
+node scripts/check-content.mjs
+npm run typecheck
+npm run build
+npx playwright install chromium
+npm run test:site
+```
+
+Content checks use the Git file list. Do not edit generated `site/.generated/`, `site/.docusaurus/` or `site/build/`. New routes/assets require reviewed source-map and navigation updates; arbitrary uploaded files do not automatically appear on the website. Preserve existing URLs and anchors, or provide a verified compatibility plan.
+
+CI also checks shell syntax, ShellCheck and YAML. A green result proves automated checks, not electrical safety, mechanical fit or compliance. Confirm the exact preview build; shared Pages may have been replaced by another PR or master build.
 
 ## Releases
 
-After merging, an administrator creates an annotated `VX.Y.Z` or
-`VX.Y.Z-rcN` tag on a commit in `master`. CI validates and packages the source
-and material, then publishes a Release titled with that tag. RC releases are
-prereleases. Use a new tag for a correction rather than replacing a tag.
-See [README.md](README.md) for release contents and current integration limits.
+Only an Admin performs these steps after a reviewed merge. Choose an unused version; never replace or delete a published tag. RC tags are prereleases and do not become latest stable.
 
-Contributions must be distributable under [LICENSE](LICENSE), except clearly
-identified third-party material with its own redistribution terms.
+```bash
+git switch master
+git pull --ff-only
+TAG=V1.0.1-rc5  # Example only: choose the next unused approved version.
+git ls-remote --tags origin "refs/tags/$TAG" "refs/tags/$TAG^{}"
+# Stop if either ref exists. Confirm master is clean before continuing.
+git tag -a "$TAG" -m "$TAG"
+git push origin "refs/tags/$TAG"
+```
+
+These commands are instructions, not authorization to publish during a content review. Release tags must be annotated, follow `VX.Y.Z` / `VX.Y.Z-rcN`, and point to a commit in master history. GitHub checks tags after push; local pre-push does not prevalidate tags. Creating a tag through a web Release form is not a substitute for this process.
+
+Follow the release validation, publish and test-deploy jobs to completion. Verify asset checksums, the online deployment marker and affected downloads. A successful GitHub Release with a failed deploy is not a successful website rollout. Current automatic deployment covers the test platform only; production hosting remains unconfigured.
+
+English changelog entries are grouped under English or fixed Chinese headings; legacy English summaries are supported. Translation APIs remain placeholders. SPDX describes repository distribution, not the board's component BOM.
+
+## Reports and licensing
+
+Use Issues/PRs for material errors, the [contact page](https://developer.inhand.online/contact/) for product questions and [SECURITY.md](SECURITY.md) for sensitive reports. Contributions follow [LICENSE](LICENSE), except identified third-party material retaining its own redistribution terms. Public branches and draft PRs are not confidential storage.
