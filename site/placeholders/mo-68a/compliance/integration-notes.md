@@ -7,5 +7,5 @@ sidebar_position: 3
 Labelling and antenna requirements when you build the board into your own product.
 
 :::info[Coming soon]
-This content is being prepared. Questions in the meantime? Ask on the [forum](https://community.inhand.com).
+This content is being prepared. For product questions, use the [contact page](https://developer.inhand.online/contact/).
 :::

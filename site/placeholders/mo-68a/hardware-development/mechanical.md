@@ -7,5 +7,5 @@ sidebar_position: 4
 Mo 68A: Dimensions, 3D model and mounting holes.
 
 :::info[Coming soon]
-This content is being prepared. Questions in the meantime? Ask on the [forum](https://community.inhand.com).
+This content is being prepared. For product questions, use the [contact page](https://developer.inhand.online/contact/).
 :::

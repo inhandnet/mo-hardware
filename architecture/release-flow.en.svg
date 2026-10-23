@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 800" role="img" aria-labelledby="title desc"><title id="title">mo-hardware · contribution and release</title><desc id="desc">Permissions, mandatory checks and tag immutability use separate protection.</desc><rect width="1120" height="800" rx="20" fill="#f4f8f6"/><style>text{font-family:Arial,"Noto Sans CJK SC",sans-serif}.h{font-size:30px;font-weight:700;fill:#133d32}.s{font-size:16px;fill:#526b63}.t{font-size:22px;font-weight:700;fill:#153d33}.k{font-size:16px;font-weight:700;fill:#007d52}.p{font-size:15px;fill:#435d54}</style><text class="h" x="40" y="58">mo-hardware · contribution and release</text><text class="s" x="40" y="92">Permissions, mandatory checks and tag immutability use separate protection.</text>
+<rect x="40" y="130" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="130" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="172">01  Write / contributor</text><text class="k" x="64" y="210">Topic branch → PR</text>
+<text class="p" x="64" y="245">Edit material and cite evidence; English commit / PR</text>
+<text class="p" x="64" y="269">titles.</text>
+<rect x="580" y="130" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="130" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="172">01  Required CI</text><text class="k" x="604" y="210">commit-message + ci</text>
+<text class="p" x="604" y="245">Messages, content, tests, types, build and browser</text>
+<text class="p" x="604" y="269">checks.</text>
+<rect x="40" y="332" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="332" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="374">02  Pages preview</text><text class="k" x="64" y="412">Successful PR / master CI</text>
+<text class="p" x="64" y="447">Static artifacts only; shared slot, verify build</text>
+<text class="p" x="64" y="471">identity.</text>
+<rect x="580" y="332" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="332" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="374">02  Admin merge</text><text class="k" x="604" y="412">Successful checks → squash master</text>
+<text class="p" x="604" y="447">No extra approval required; delete the source branch.</text>
+<rect x="40" y="534" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="534" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="576">03  Admin tag</text><text class="k" x="64" y="614">Annotated VX.Y.Z / VX.Y.Z-rcN</text>
+<text class="p" x="64" y="649">A commit in master history; existing tags are</text>
+<text class="p" x="64" y="673">immutable.</text>
+<rect x="580" y="534" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="534" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="576">03  Release → test deployment</text><text class="k" x="604" y="614">Validate → publish → deploy-hardware</text>
+<text class="p" x="604" y="649">Check the live marker; rollback on smoke-check failure.</text>
+<text class="s" x="40" y="771">Matching version numbers do not imply compatibility. Excel conversion and production hosting remain future work.</text></svg>

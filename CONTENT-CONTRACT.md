@@ -1,7 +1,7 @@
 # Hardware content and website contract
 
-This document fixes directory responsibilities. The hardware site will build
-and publish independently; mo-docs retains software tutorials and navigation
+This document fixes directory responsibilities. The hardware site builds
+and publishes independently; mo-docs retains software tutorials and navigation
 links to hardware pages. The first site migration uses ordinary Markdown and
 approved attachments; it is not a completed Excel parser or validation catalog.
 Mo62A content is populated. Mo68A product records remain empty while inherited
@@ -75,3 +75,13 @@ Large files should eventually use versioned release/object-storage attachments.
 For now, committed files must be at most 50 MiB and must contain actual bytes,
 not Git LFS pointer text. Third-party documentation may use stable official
 links; transient signed URLs are not permanent download locations.
+
+## Maintainer training and current input contract
+
+The [training guide](training/README.zh-CN.md) provides a browser-first workflow, a complete exercise and detailed instructions for every hardware-owned category. `training/` files are repository documentation, not product routes or hardware validation records. Their synthetic/unrecorded fields must not become published product facts.
+
+Current pages use ordinary English Markdown with YAML front matter. Sources, attachments and destination URLs are registered explicitly in `site/content-map.json`; software maintainers handle new routes/assets/navigation. Hardware contributors provide approved files, provenance, revisions, intended placement and verification scope. Uploading a file or including it in the file manifest does not publish a website link.
+
+Page checks reject missing sources/front matter, traversal and duplicate routes/outputs before generation. Workbook fields in this contract and training are future design or manual review requirements, not an implemented Excel importer. The product site is currently English; Chinese training does not imply bilingual product-page routing.
+
+GitHub web uploads allow up to 25 MiB per file; repository checks cap files at 50 MiB. Larger-than-web-limit files within the repository cap require a maintainer's local Git upload. Files exceeding the repository cap need a separately agreed versioned download arrangement. Keep complete attachment bytes, not LFS pointer files.

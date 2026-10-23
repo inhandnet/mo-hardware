@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 800" role="img" aria-labelledby="title desc"><title id="title">Mo 系列 · 仓库协同</title><desc id="desc">各仓库独立维护与发布，依靠明确的版本、来源和链接协作。</desc><rect width="1120" height="800" rx="20" fill="#f4f8f6"/><style>text{font-family:Arial,"Noto Sans CJK SC",sans-serif}.h{font-size:30px;font-weight:700;fill:#133d32}.s{font-size:16px;fill:#526b63}.t{font-size:22px;font-weight:700;fill:#153d33}.k{font-size:16px;font-weight:700;fill:#007d52}.p{font-size:15px;fill:#435d54}</style><text class="h" x="40" y="58">Mo 系列 · 仓库协同</text><text class="s" x="40" y="92">各仓库独立维护与发布，依靠明确的版本、来源和链接协作。</text>
+<rect x="40" y="130" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="130" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="172">developer</text><text class="k" x="64" y="210">开发者主站</text>
+<text class="p" x="64" y="245">产品入口、导航和发布聚合；链接资料站。</text>
+<rect x="580" y="130" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="130" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="172">Mo*</text><text class="k" x="604" y="210">每型号独立 BSP / 镜像</text>
+<text class="p" x="604" y="245">系统适配与镜像；提供硬件验证所用软件基线。</text>
+<rect x="40" y="332" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="332" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="374">mo-hardware</text><text class="k" x="64" y="412">硬件资料与硬件站</text>
+<text class="p" x="64" y="447">产品、设计附件、验证、合规、配件；独立构建。</text>
+<rect x="580" y="332" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="332" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="374">mo-docs</text><text class="k" x="604" y="412">软件教程与软件文档站</text>
+<text class="p" x="604" y="447">系统、配置和应用指南；链接硬件设计与资料。</text>
+<rect x="40" y="534" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="40" y="534" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="64" y="576">mo-tools / mo-models</text><text class="k" x="64" y="614">工具与模型</text>
+<text class="p" x="64" y="649">工具版本、模型清单、基准；记录引用具体版本。</text>
+<rect x="580" y="534" width="500" height="174" rx="13" fill="white" stroke="#c9ded2"/><rect x="580" y="534" width="6" height="174" rx="3" fill="#00935a"/><text class="t" x="604" y="576">mo-examples</text><text class="k" x="604" y="614">设备示例应用</text>
+<text class="p" x="604" y="649">真实运行代码；维护培训示例保留在 mo-hardware。</text>
+<text class="s" x="40" y="771">版本数字相同不代表兼容。Excel 自动转换与正式平台仍待后续接入。</text></svg>

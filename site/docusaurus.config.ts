@@ -22,7 +22,7 @@ const config: Config = {
   i18n: {defaultLocale: 'en', locales: ['en']},
   staticDirectories: ['static', '.generated/static'],
   headTags: preview ? [{tagName: 'meta', attributes: {name: 'robots', content: 'noindex, nofollow'}}] : [],
-  plugins: ['./plugins/build-cache.mjs', './plugins/search.mjs', './plugins/font-license.mjs'],
+  plugins: ['./plugins/build-cache.mjs', './plugins/search.mjs', './plugins/font-license.mjs', './plugins/deployment.mjs'],
   presets: [['classic', {
     docs: {path: '.generated/docs', routeBasePath: '/', sidebarPath: './sidebars.ts',
       showLastUpdateTime: false, showLastUpdateAuthor: false, breadcrumbs: true},

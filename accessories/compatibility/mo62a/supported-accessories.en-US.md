@@ -4,8 +4,8 @@ description: "Mo 62A: Official, verified and community-reported accessories."
 sidebar_position: 1
 ---
 
-Accessories that work with the Mo 62A, in three levels — official, verified and community-reported — each linking to its guide in [Accessories](/accessories). Includes the official USB Wi-Fi adapter.
+Accessories that work with the Mo 62A, in three levels — official, verified and community-reported — each linking to its guide in [Accessories](/accessories). A specific accessory is supported only when a corresponding model and compatibility record are published.
 
 :::info[Coming soon]
-This content is being prepared. Questions in the meantime? Ask on the [forum](https://community.inhand.com).
+This content is being prepared. For product questions, use the [contact page](https://developer.inhand.online/contact/).
 :::

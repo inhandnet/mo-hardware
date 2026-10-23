@@ -142,17 +142,18 @@ The [sheet 17 preview](#connector-circuits-sheet-17) collects several otherwise 
 
 The older README disagrees on some connector names and fan signal assignments. Follow the reviewed sheet 17 references, the pin table and live device-tree mapping together, and validate any change on the exact board revision. Do not infer a completed electrical test merely because a net is drawn.
 
-## Git LFS and download checks
+## Repository and download checks
 
-The PDFs use Git LFS. If a checkout contains a short text file beginning with `version https://git-lfs.github.com/spec/v1`, you have the pointer, not the schematic. Use the direct links above, GitHub's raw download, or fetch the LFS objects in your own clone:
+This repository stores complete PDF files under `products/mo62a/schematics/files/`; it does not use Git LFS for these attachments. The upstream Mo62A BSP repository uses Git LFS at a different path. Commands for that repository must not be run as if they were mo-hardware paths.
+
+After cloning mo-hardware, inspect the local files:
 
 ```bash
-git lfs pull --include="doc/Schematic/*.pdf"
-file doc/Schematic/*.pdf
-sha256sum doc/Schematic/*.pdf
+file products/mo62a/schematics/files/*.pdf
+sha256sum products/mo62a/schematics/files/*.pdf
 ```
 
-Verify that the result is a PDF of the expected size and hash before sharing it with an integrator. Do not take a successful download of a pointer file as proof that you received the design.
+Compare each result with the filename, size and SHA-256 in [Download the published files](#download-the-published-files). A short text file beginning with `version https://git-lfs.github.com/spec/v1` is a pointer, not a PDF; obtain the complete bytes from the published downloads before use. The repository checks reject LFS pointers.
 
 ## Revision caveat
 
